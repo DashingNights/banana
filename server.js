@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const Article = require('./models/article')
+const config = require('./config')
 const articleRouter = require('./routes/articles')
 const methodOverride = require('method-override')
 const app = express()
@@ -9,13 +10,7 @@ var multer = require('multer');
 var upload = multer(); 
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
-const Users = {
-  admin: {
-    id: "admin",
-    password: "admin",
-    isAdmin: true
-  }
-};
+const Users = require('./models/User');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(upload.array());
@@ -23,7 +18,7 @@ app.use(cookieParser());
 app.use(session({secret: "aiw8ynhtvo82q60982qynb0vo"}));
 
 
-mongoose.connect('mongodb://localhost/blog', {
+mongoose.connect('mongodb://'+config.Mongodb.host+'/'+config.Mongodb.name, {
   useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true
 })
 
@@ -46,7 +41,7 @@ app.get('/adminview', function(req, res){
       } else {
         const userId = decoded.userId;
         const articles = await Article.find().sort({ createdAt: 'desc' });
-        res.render('admin/adminview', { id: req.userId, articles: articles, isAdmin: req.isAdmin });
+        res.render('admin/adminview', { id: userId, articles: articles, isAdmin: req.isAdmin });
       }
     });
   } else {

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/customstyle.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="/customstyle.css">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="manifest" href="/manifest.json">
   <title>College Insider webApp build 2</title>
@@ -12,7 +12,9 @@
 <body>
   <div class="container">
     <p></p>
-    <h1 class="mb-4">College Insider 2.0</h1>
+    <img src="https://subject.hkugac.edu.hk/newsletter/images/just%20shooting%20v2.gif" alt="College Insider Logo" height=90mvw>
+    <p></p>
+    <!-- <h1 class="mb-4">College Insider 2.0</h1> -->
     <!-- <a href="/articles/new" class="btn btn-success">New Article</a> -->
     <a href="/login" class="btn btn-success button">Login</a>
     <p></p>
@@ -23,7 +25,7 @@
     <% articles.forEach(article => { %>
         <div class="card mt-4">
           <div class="card-body">
-            <h4 class="card-title"><%= article.title %></h4>
+            <h6 class="card-title"><%= article.title %></h4>
             <div class="container">
             <div class="text-muted mb-2">
               <%= article.createdAt.toLocaleDateString() %>

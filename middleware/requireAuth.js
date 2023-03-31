@@ -2,13 +2,6 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken');
-const Users = {
-  admin: {
-    id: "admin",
-    password: "admin",
-    isAdmin: true
-  }
-};
 function requireAuth(req, res, next, ) {
     const token = req.cookies.token;
     if (token) {
