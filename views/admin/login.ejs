@@ -22,7 +22,7 @@
     </style>
 </head>
 <body class="gradient-custom">
-<section class="vh-100 ">
+  <section class="vh-100 ">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -33,20 +33,23 @@
   
                 <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                 <p class="text-white-50 mb-5">Please enter your username and password!</p>
-                <form action="/login" method="post">
+                <form action="/login" method="post" id="loginform">
 
                     <div class="form-outline form-white mb-4">
                     <input type="username" id="id" name="id" class="form-control form-control-lg" />
                     <label class="form-label" for="id">Username</label>
                     </div>
-    
                     <div class="form-outline form-white mb-4">
                     <input type="password" id="password" name="password" class="form-control form-control-lg" />
                     <label class="form-label" for="password">Password</label>
                     </div>
                     
-                        <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
-
+                        <button class="btn btn-outline-light btn-lg px-5" type="submit" >Login</button>
+                        <button class="btn btn-dark" action="/">Back</button>
+                        <div>               
+                          <p></p>         
+                          <input type="checkbox" id="rememberMe" name="rememberMe" value="true"> <label for="rememberMe">Remember me</label>
+                        </div>
                 </form>
               </div>
   
@@ -56,3 +59,7 @@
       </div>
     </div>
   </section>
+  <script>
+  </script>
+</body>
+</html>
