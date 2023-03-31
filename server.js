@@ -9,11 +9,13 @@ var multer = require('multer');
 var upload = multer(); 
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
-var Users = [
-  {
-      id:"admin",
-      password:"admin"
-  }];
+const Users = {
+  admin: {
+    id: "admin",
+    password: "admin",
+    isAdmin: true
+  }
+};
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(upload.array());
@@ -33,6 +35,25 @@ app.get('/', async (req, res) => {
   const articles = await Article.find().sort({ createdAt: 'desc' })
   res.render('articles/index', { articles: articles })
 })
+const jwt = require('jsonwebtoken');
+
+app.get('/adminview', function(req, res){
+  const token = req.cookies.token;
+  if (token) {
+    jwt.verify(token, '9owlna876b4v9o2q.lab17mq246hb2n7q7', async function(err, decoded) {
+      if (err) {
+        res.redirect('/login');
+      } else {
+        const userId = decoded.userId;
+        const articles = await Article.find().sort({ createdAt: 'desc' });
+        res.render('admin/adminview', { id: req.userId, articles: articles, isAdmin: req.isAdmin });
+      }
+    });
+  } else {
+    res.redirect('/login');
+  }
+});
+
 app.get('/manifest.json', async (req, res) => {
   res.sendFile(__dirname + '/public/manifest.json')
 })
@@ -41,35 +62,26 @@ app.get('/customstyle.css', async (req, res) => {
 })
 
 
-app.get('/adminview', async function(req, res){
-  const articles = await Article.find().sort({ createdAt: 'desc' })
-  res.render('admin/adminview',  { articles: articles, id: req.session.user.id})
-  
-});
-
 app.get('/login', function(req, res){
   res.render('admin/login');
 });
 
 app.post('/login', function(req, res){
-  // console.log(Users);
   if(!req.body.id || !req.body.password){
-    res.redirect('/')
+    res.redirect('/');
   } else {
-     Users.filter(function(user){
-        if(user.id === req.body.id && user.password === req.body.password){
-           req.session.user = user;
-           res.redirect('/adminview');
-        }
-     });
-    // res.render('admin/login');
+    const user = Users.find(u => u.id === req.body.id && u.password === req.body.password);
+    if (user) {
+      const token = jwt.sign({ userId: user.id }, '9owlna876b4v9o2q.lab17mq246hb2n7q7', { expiresIn: '1h' });
+      res.cookie('token', token, { httpOnly: true });
+      res.redirect('/adminview');
+    } else {
+      res.redirect('/');
+    }
   }
 });
-
 app.get('/logout', function(req, res){
-  req.session.destroy(function(){
-     console.log("user logged out.")
-  });
+  res.clearCookie('token');
   res.redirect('/login');
 });
 
@@ -77,3 +89,52 @@ app.get('/logout', function(req, res){
 app.use('/articles', articleRouter)
 
 app.listen(1234)
+
+// function authMiddleware(req, res, next, isAdmin = false) {
+//   const token = req.cookies.token;
+//   if (token) {
+//     jwt.verify(token, 'secret-key', function(err, decoded) {
+//       if (err) {
+//         res.redirect('/login');
+//       } else {
+//         req.userId = decoded.userId;
+//         Users.findOne({ id: req.userId }, 'id isAdmin', function(err, user) {
+//           if (err) {
+//             res.redirect('/login');
+//           } else if (user) {
+//             if (isAdmin && !user.isAdmin) {
+//               res.redirect('/adminview');
+//             } else {
+//               req.isAdmin = user.isAdmin;
+//               next();
+//             }
+//           } else {
+//             res.redirect('/login');
+//           }
+//         });
+//       }
+//     });
+//   } else {
+//     res.redirect('/login');
+//   }
+// }
+// app.use(authMiddleware);
+// function requireAuth(req, res, next) {
+//   const token = req.cookies.token;
+//   if (token) {
+//     jwt.verify(token, 'secret-key', function(err, decoded) {
+//       if (err) {
+//         res.redirect('/login');
+//       } else {
+//         req.userId = decoded.userId;
+//         next();
+//       }
+//     });
+//   } else {
+//     res.redirect('/login');
+//   }
+// }
+// app.use(requireAuth);
+process.on('uncaughtException', function (err) {
+  console.log('Caught exception: ' + err);
+});
