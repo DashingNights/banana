@@ -1,0 +1,10 @@
+.btn:hover {
+    transform: scale(1.09);
+}
+.btn:active {
+    transform: scale(1.25);
+}
+.limit img {
+    width: 100%;
+    height: auto;
+}

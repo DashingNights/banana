@@ -1,0 +1,21 @@
+{ 
+
+  "name": "CollegeInsider Build 2", 
+
+  "short_name": "Insider", 
+
+  "start_url": "http://0.0.0.0:1234", 
+
+  "display": "standalone", 
+
+  "icons": [{ 
+
+    "src": "https://subject.hkugac.edu.hk/newsletter/images/logo.jpg", 
+
+    "sizes": "512x512", 
+
+    "type": "image/png" 
+
+  }] 
+
+}
