@@ -70,7 +70,7 @@ app.post('/login', function(req, res){
   if(!req.body.id || !req.body.password){
     res.redirect('/');
   } else {
-    const user = Users.find(u => u.id === req.body.id && u.password === req.body.password);
+    const user = Object.values(Users).find(u => u.id === req.body.id && u.password === req.body.password);
     if (user) {
       const token = jwt.sign({ userId: user.id }, '9owlna876b4v9o2q.lab17mq246hb2n7q7', { expiresIn: '1h' });
       res.cookie('token', token, { httpOnly: true });
