@@ -17,6 +17,11 @@ const articleSchema = new mongoose.Schema({
     type: String,
     default: 'Anonymous'
   },
+  hashtags: {
+    type: String,
+    default:'#KnowYourThing',
+    required: true
+  },
   markdown: {
     type: String,
     required: true

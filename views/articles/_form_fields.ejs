@@ -7,6 +7,10 @@
   <input required value="<%= article.author %>" type="text" name="author" id="author" class="form-control">
 </div>
 <div class="form-group">
+  <label for="author">Hashtags</label>
+  <input required value="<%= article.hashtags %>" type="text" name="hashtags" id="hashtags" class="form-control">
+</div>
+<div class="form-group">
   <label for="description">Description</label>
   <textarea name="description" id="description" class="form-control"><%= article.description %></textarea>
 </div>
