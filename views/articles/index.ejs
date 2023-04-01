@@ -37,7 +37,7 @@
           <h6 class="card-title"><%= article.title %></h4>
           <div class="container">
             <div class="text-muted mb-2">
-              <%= article.createdAt.toLocaleDateString() %> - <%= article.author %>
+              <%= article.createdAt.toLocaleDateString() %> - <%= article.author %> <%= article.hashtags %>
             </div>
             <div class="card-text mb-2"><%= article.description %></div>
             <a href="articles/<%= article.slug %>" class="btn btn-secondary">Read More</a>
