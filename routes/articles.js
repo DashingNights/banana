@@ -40,7 +40,8 @@ function saveArticleAndRedirect(path) {
     let article = req.article
     article.hashtags = req.body.hashtags
     article.title = req.body.title
-    article.date = req.body.createdAt
+    article.createdAt = req.body.date
+    // console.log(article.createdAt)
     article.description = req.body.description
     article.markdown = req.body.markdown
     article.author = req.body.author
