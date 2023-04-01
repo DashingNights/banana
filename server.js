@@ -5,6 +5,7 @@ const config = require('./config')
 const articleRouter = require('./routes/articles')
 const methodOverride = require('method-override')
 const app = express()
+
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var upload = multer(); 
@@ -133,3 +134,8 @@ app.listen(1234)
 process.on('uncaughtException', function (err) {
   console.log('Caught exception: ' + err);
 });
+
+// const { checkAndFillNullEntries, fillMissingProperty } = require('./mongochecker');
+
+// checkAndFillNullEntries();
+// fillMissingProperty();

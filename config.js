@@ -1,7 +1,7 @@
 const config = {
       Mongodb: {
         host: 'localhost',
-        name: 'blog'
+        name: 'PROD'
       }
    };
 module.exports = config;
