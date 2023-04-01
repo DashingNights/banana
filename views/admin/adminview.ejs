@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link rel="stylesheet" href="/customstyle.css">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="manifest" href="/manifest.json">
@@ -18,14 +18,15 @@
         <div class="card-body">
           <h6 class="card-title"><%= article.title %></h4>
           <div class="card-subtitle text-muted mb-2">
-            <%= article.createdAt.toLocaleDateString() %>
+            <%= article.createdAt.toLocaleDateString() %> - <%= article.author %>
           </div>
-          <div class="card-text mb-2"><%= article.description %></div>
-          <!-- <a href="articles/<%= article.slug %>" class="btn btn-primary">Read More</a> -->
-            <div class="limit">
+          <div class="text-muted card-text mb-2"><%= article.description %></div>
+          <a href="articles/<%= article.slug %>" class="btn btn-secondary">Read More</a>
+            <!-- <div class="limit">
                 <%- article.sanitizedHtml %>
-            </div>
+            </div> -->
           <a href="articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
+          <h6></h6>
             <form action="/articles/<%= article.id %>?_method=DELETE" method="post">
               <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this article?')">Delete</button>
             </form>

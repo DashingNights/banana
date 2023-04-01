@@ -13,6 +13,10 @@ const articleSchema = new mongoose.Schema({
   description: {
     type: String
   },
+  author: {
+    type: String,
+    default: 'Anonymous'
+  },
   markdown: {
     type: String,
     required: true
