@@ -30,6 +30,8 @@ app.use(methodOverride('_method'))
 app.get('/', async (req, res) => {
   const articles = await Article.find().sort({ createdAt: 'desc' })
   res.render('articles/index', { articles: articles })
+  var userIP = req.socket.remoteAddress;
+  console.log(userIP);
 })
 const jwt = require('jsonwebtoken');
 
@@ -56,7 +58,9 @@ app.get('/manifest.json', async (req, res) => {
 app.get('/customstyle.css', async (req, res) => {
   res.sendFile(__dirname + '/public/customstyle.css')
 })
-
+app.get('/share.svg', async (req, res) => {
+  res.sendFile(__dirname + '/public/share.svg')
+})
 
 app.get('/login', function(req, res){
   res.render('admin/login');
