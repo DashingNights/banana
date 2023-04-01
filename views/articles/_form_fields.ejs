@@ -11,6 +11,10 @@
   <input required value="<%= article.hashtags %>" type="text" name="hashtags" id="hashtags" class="form-control">
 </div>
 <div class="form-group">
+  <label for="createdAt">Date</label>
+  <input required value="<%= article.createdAt %>" type="datetime-local" name="createdAt" id="createdAt"class="form-control">
+</div>
+<div class="form-group">
   <label for="description">Description</label>
   <textarea name="description" id="description" class="form-control"><%= article.description %></textarea>
 </div>

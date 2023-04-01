@@ -38,7 +38,9 @@ router.delete('/:id', requireAuth, authMiddleware, async (req, res) => {
 function saveArticleAndRedirect(path) {
   return async (req, res) => {
     let article = req.article
+    article.hashtags = req.body.hashtags
     article.title = req.body.title
+    article.date = req.body.createdAt
     article.description = req.body.description
     article.markdown = req.body.markdown
     article.author = req.body.author
