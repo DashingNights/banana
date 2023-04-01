@@ -58,12 +58,15 @@ app.get('/manifest.json', async (req, res) => {
 app.get('/customstyle.css', async (req, res) => {
   res.sendFile(__dirname + '/public/customstyle.css')
 })
-app.get('/share.svg', async (req, res) => {
-  res.sendFile(__dirname + '/public/share.svg')
-})
 
 app.get('/login', function(req, res){
   res.render('admin/login');
+});
+app.get('/portal', function(req, res){
+  res.render('articles/portal');
+});
+app.get('/cdn/loadingdots', function(req, res){
+  res.sendFile(__dirname + '/public/loadingdots.gif');
 });
 
 app.post('/login', function(req, res){
@@ -89,6 +92,7 @@ app.get('/logout', function(req, res){
 app.use('/articles', articleRouter)
 
 app.listen(1234)
+
 
 // function authMiddleware(req, res, next, isAdmin = false) {
 //   const token = req.cookies.token;

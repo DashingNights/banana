@@ -11,6 +11,7 @@
 body {
     zoom: 75%;
     background-color: #fffdf8;
+    padding-top: 65px; /* Adjust this value to match the height of your header bar */
 }
 .footer {
     position: fixed;
@@ -19,7 +20,7 @@ body {
     width: 100%;
     height: 50px;
     background-color: #fffdf4;
-    border-top: 1px solid #7979796b;
+    border-top: 1px solid #b6b6b66b;
     display: flex;
     justify-content: space-between;
     padding: 10px;
@@ -35,3 +36,43 @@ body {
     font-weight: bold;
     flex-grow: 1;
 }
+.navbar {
+    border-bottom: 0.25px solid #b6b6b66b;
+    background-color: #fffdf4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+#pull-to-refresh {
+    padding-top: 65px;
+    position: absolute;
+    top: -85px;
+    left: 0;
+    width: 100%;
+    height: 65px;
+    text-align: center;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    z-index: -1;
+  }
+  
+  #pull-to-refresh .icon {
+    font-size: 24px;
+    color: #888;
+    margin-top: 12px;
+  }
+  
+  #pull-to-refresh .message {
+    font-size: 14px;
+    color: #888;
+    margin-top: 4px;
+  }
+  #pull-to-refresh.transition {
+    transition: transform 0.3s ease-out;
+  }
+  
+  #pull-to-refresh.transition.refreshing {
+    transform: translateY(85px); /* Adjust this value to set the pulled-down position */
+  }

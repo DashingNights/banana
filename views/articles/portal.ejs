@@ -8,7 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="https://subject.hkugac.edu.hk/newsletter/images/logo.jpg">
-  <title>College Insider</title>
+  <title>College Insider Portal</title>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light">
@@ -23,41 +23,17 @@
       <img src="/cdn/loadingdots" alt="loadingImage">
     </div>
   </div>
-  <div class="container">
-    <p></p>
-    <img src="https://subject.hkugac.edu.hk/newsletter/images/just%20shooting%20v2.gif" alt="College Insider Logo" height=90mvhw>
-    <p></p>
-    <!-- <h1 class="mb-4">College Insider 2.0</h1> -->
-    <!-- <a href="/articles/new" class="btn btn-success">New Article</a> -->
-    <!-- <a href="/login" class="btn btn-success button">Login</a> -->
-    <p></p>
-    <div class="input-group">
-      <input type="search" class="form-control rounded" placeholder="Search is coming soon." aria-label="Search" aria-describedby="search-addon" />
-      <button type="button" class="btn btn-outline-primary">search</button>
+  <div class="container" style="padding-top: 20px">
+<!-- list of different links -->
+    <p class="h2">link Portal</p>
+    <div>
+        <ul class="list-group list-group-flush">
+            <li></li>
+            <li><a href="https://www.instagram.com/hkugac_college_insider/"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>Instagram</a></li>
+            <li></li>
+            <li><a href="https://docs.google.com/document/d/1coA5enQ9m7-oK7atZHX56L0BCbF-2RrkhGtd5hHvt_Q/edit?usp=sharing"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Daily Bulletin</a></li>
+        </ul>
     </div>
-    <% articles.forEach(article => {
-      // Extract the URL of the first image in the article
-      let imageUrl = '';
-      const regex = /<img.*?src="(.*?)"/;
-      const match = regex.exec(article.sanitizedHtml);
-      if (match) {
-        imageUrl = match[1];
-      }
-    %>
-      <div class="card mt-4">
-        <div class="card-body" style="background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.96),rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.7)), url('<%= imageUrl %>'); background-size: cover; background-repeat: no-repeat; background-size: 100% fit;">
-          <h6 class="card-title"><%= article.title %></h4>
-          <div class="container">
-            <div class="text-muted mb-2">
-              <%= article.createdAt.toLocaleDateString() %> - <%= article.author %> <%= article.hashtags %>
-            </div>
-            <div class="card-text mb-2"><%= article.description %></div>
-            <a href="articles/<%= article.slug %>" class="btn btn-secondary">Read More</a>
-          </div>
-        </div>
-      </div>
-    <% }) %>
-
   </div>
   <p><br><br></p>
   <div class="footer">
