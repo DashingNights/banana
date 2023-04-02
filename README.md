@@ -12,7 +12,7 @@ To run the Banana Project, follow the instructions below:
 
 1. Clone the repository using the following command:
    
-```git clone https://github.com/your-username/banana.git```
+```git clone https://github.com/DashingNights/banana.git```
 
 
 2. Install the dependencies using the following command:
