@@ -29,17 +29,7 @@ To run the Banana Project, follow the instructions below:
 
 ## Front-end
 
-The front-end of the Banana Project is built using HTML, CSS, and JavaScript. The front-end code is located in the `public` directory. The `public` directory contains the following files:
-
-- `index.html`: The main HTML file for the website.
-
-- `styles.css`: The CSS file that contains the styling for the website.
-
-- `main.js`: The JavaScript file that contains the logic for the website.
-
-- `manifest.json`: The file that contains the metadata for the website.
-
-The front-end code communicates with the back-end using HTTP requests.
+The front-end of the Banana Project is built using HTML, CSS, and JavaScript. The front-end code is located in the `views` directory. The `views` directory contains the files.
 
 ## Back-end
 
