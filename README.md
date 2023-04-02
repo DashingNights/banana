@@ -20,13 +20,17 @@ To run the Banana Project, follow the instructions below:
 
 ```npm install```
 
+3. Install MongoDB
 
-3. Start the server using the following command:
+[Installing MongoDB](https://www.mongodb.com/docs/manual/administration/install-community/)
+
+
+4. Start the server using the following command:
 
 ```npm run devStart```
 
 
-4. Access the website at `http://localhost:1234`
+5. Access the website at `http://localhost:1234`
 
 ## Front-end
 
