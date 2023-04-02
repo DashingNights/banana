@@ -25,7 +25,7 @@ To run the Banana Project, follow the instructions below:
 ```npm run devStart```
 
 
-4. Access the website at `http://localhost:3000`
+4. Access the website at `http://localhost:1234`
 
 ## Front-end
 
