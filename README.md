@@ -1,6 +1,6 @@
 # Banana Project
 
-This is a one-page documentation for the Banana Project.
+This is a one-page documentation for the Banana Project. This project is primarily made for the HKUGACollege student-ran 'College Insider'. Please edit to fit usage purposes when forked.
 
 ## Overview
 
