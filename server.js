@@ -16,8 +16,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(upload.array());
 app.use(cookieParser());
-app.use(session({secret: "aiw8ynhtvo82q60982qynb0vo"}));
-
+app.use(session({
+  secret: "aiw8ynhtvo82q60982qynb0vo",
+  resave: false,
+  saveUninitialized: false
+}));
 
 mongoose.connect('mongodb://'+config.Mongodb.host+'/'+config.Mongodb.name, {
   useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true
