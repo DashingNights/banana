@@ -2,7 +2,9 @@
 
 This is a one-page documentation for the Banana Project. This project is primarily made for the HKUGACollege student-ran 'College Insider'. Please edit to fit usage purposes when forked.
 
+WIKI:
 [Wiki](https://github.com/DashingNights/banana/wiki)
+DEMO:
 [DEMO: https://insider.argus10q.live](https://insider.argus10q.live)
 ## Overview
 
