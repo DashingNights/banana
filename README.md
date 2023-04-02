@@ -3,6 +3,7 @@
 This is a one-page documentation for the Banana Project. This project is primarily made for the HKUGACollege student-ran 'College Insider'. Please edit to fit usage purposes when forked.
 
 [Wiki](https://github.com/DashingNights/banana/wiki)
+[DEMO: https://insider.argus10q.live](https://insider.argus10q.live)
 ## Overview
 
 The Banana Project is a website that allows users to read and write articles. The project has both front-end and back-end components, and it is built using Node.js, Express.js, and MongoDB.
