@@ -12,17 +12,17 @@ To run the Banana Project, follow the instructions below:
 
 1. Clone the repository using the following command:
    
-> ```git clone https://github.com/your-username/banana.git```
+```git clone https://github.com/your-username/banana.git```
 
 
 2. Install the dependencies using the following command:
 
-> ```npm install```
+```npm install```
 
 
 3. Start the server using the following command:
 
-> ```npm run devStart```
+```npm run devStart```
 
 
 4. Access the website at `http://localhost:3000`
