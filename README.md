@@ -37,13 +37,9 @@ The back-end of the Banana Project is built using Node.js, Express.js, and Mongo
 
 ### Routes
 
-The `routes` directory contains the following files:
-
-- `index.js`: The file that defines the main routes for the website.
+The `routes` directory contains the following file(s):
 
 - `articles.js`: The file that defines the routes for handling articles.
-
-- `auth.js`: The file that defines the routes for handling authentication.
 
 The routes are responsible for handling incoming HTTP requests and returning responses to the client. The routes use the models to interact with the database.
 
