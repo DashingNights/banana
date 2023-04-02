@@ -6,6 +6,8 @@ WIKI:
 [Wiki](https://github.com/DashingNights/banana/wiki)
 DEMO:
 [DEMO: https://insider.argus10q.live](https://insider.argus10q.live)
+## Adding to your phone homescreen
+[Guide](https://www.macrumors.com/how-to/add-a-web-link-to-home-screen-iphone-ipad/)
 ## Overview
 
 The Banana Project is a website that allows users to read and write articles. The project has both front-end and back-end components, and it is built using Node.js, Express.js, and MongoDB.
