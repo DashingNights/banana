@@ -1,6 +1,6 @@
 const config = {
       Mongodb: {
-        host: 'localhost',
+        host: '127.0.0.1',
         name: 'PROD'
       },
       JWT: {
