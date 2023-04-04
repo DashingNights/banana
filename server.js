@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(upload.array());
 app.use(cookieParser());
 app.use(session({
-  secret: "aiw8ynhtvo82q60982qynb0vo",
+  secret: config.Session.token,
   resave: false,
   saveUninitialized: false
 }));
@@ -41,7 +41,7 @@ const jwt = require('jsonwebtoken');
 app.get('/adminview', function(req, res){
   const token = req.cookies.token;
   if (token) {
-    jwt.verify(token, '9owlna876b4v9o2q.lab17mq246hb2n7q7', async function(err, decoded) {
+    jwt.verify(token, config.JWT.token, async function(err, decoded) {
       if (err) {
         res.redirect('/login');
       } else {
@@ -78,7 +78,7 @@ app.post('/login', function(req, res){
   } else {
     const user = Object.values(Users).find(u => u.id === req.body.id && u.password === req.body.password);
     if (user) {
-      const token = jwt.sign({ userId: user.id }, '9owlna876b4v9o2q.lab17mq246hb2n7q7', { expiresIn: '1h' });
+      const token = jwt.sign({ userId: user.id }, config.JWT.token, { expiresIn: '1h' });
       res.cookie('token', token, { httpOnly: true });
       res.redirect('/adminview');
     } else {
@@ -95,58 +95,6 @@ app.get('/logout', function(req, res){
 app.use('/articles', articleRouter)
 
 app.listen(1234)
-
-
-// function authMiddleware(req, res, next, isAdmin = false) {
-//   const token = req.cookies.token;
-//   if (token) {
-//     jwt.verify(token, 'secret-key', function(err, decoded) {
-//       if (err) {
-//         res.redirect('/login');
-//       } else {
-//         req.userId = decoded.userId;
-//         Users.findOne({ id: req.userId }, 'id isAdmin', function(err, user) {
-//           if (err) {
-//             res.redirect('/login');
-//           } else if (user) {
-//             if (isAdmin && !user.isAdmin) {
-//               res.redirect('/adminview');
-//             } else {
-//               req.isAdmin = user.isAdmin;
-//               next();
-//             }
-//           } else {
-//             res.redirect('/login');
-//           }
-//         });
-//       }
-//     });
-//   } else {
-//     res.redirect('/login');
-//   }
-// }
-// app.use(authMiddleware);
-// function requireAuth(req, res, next) {
-//   const token = req.cookies.token;
-//   if (token) {
-//     jwt.verify(token, 'secret-key', function(err, decoded) {
-//       if (err) {
-//         res.redirect('/login');
-//       } else {
-//         req.userId = decoded.userId;
-//         next();
-//       }
-//     });
-//   } else {
-//     res.redirect('/login');
-//   }
-// }
-// app.use(requireAuth);
 process.on('uncaughtException', function (err) {
   console.log('Caught exception: ' + err);
 });
-
-// const { checkAndFillNullEntries, fillMissingProperty } = require('./mongochecker');
-
-// checkAndFillNullEntries();
-// fillMissingProperty();

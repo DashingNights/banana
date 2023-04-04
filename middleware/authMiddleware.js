@@ -2,11 +2,12 @@ const express = require('express')
 const app = express()
 const jwt = require('jsonwebtoken');
 const Users = require('../models/User');
+const config = require('../config');
 function authMiddleware(req, res, next, isAdmin = false) {
 
   const token = req.cookies.token;
   if (token) {
-    jwt.verify(token, '9owlna876b4v9o2q.lab17mq246hb2n7q7', function(err, decoded) {
+    jwt.verify(token, config.JWT.token, function(err, decoded) {
       if (err) {
         res.redirect('/login');
       } else {
