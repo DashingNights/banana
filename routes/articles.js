@@ -3,6 +3,7 @@ const router = express.Router()
 const Article = require('./../models/article')
 const authMiddleware = require('../middleware/authMiddleware')
 const requireAuth = require('../middleware/requireAuth')
+const config = require('../config');
 
 router.get('/new', requireAuth, authMiddleware, (req, res) => {
   res.render('articles/new', { article: new Article() })
