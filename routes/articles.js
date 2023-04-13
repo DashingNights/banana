@@ -40,7 +40,7 @@ function saveArticleAndRedirect(path) {
     let article = req.article
     article.hashtags = req.body.hashtags
     article.title = req.body.title
-    article.createdAt = req.body.date
+    // article.createdAt = req.body.date
     // console.log(article.createdAt)
     article.description = req.body.description
     article.markdown = req.body.markdown
@@ -49,6 +49,7 @@ function saveArticleAndRedirect(path) {
       article = await article.save()
       res.redirect(`/articles/${article.slug}`)
     } catch (e) {
+      console.log(e)
       res.render(`articles/${path}`, { article: article })
     }
   }
