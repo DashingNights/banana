@@ -17,7 +17,7 @@
     <% articles.forEach(article => { %>
       <div class="card mt-4">
         <div class="card-body">
-          <h6 class="card-title"><%= article.title %></h4>
+          <h6 class="card-title"><%= article.title %></h6>
           <div class="card-subtitle text-muted mb-2">
             <%= article.createdAt.toLocaleDateString() %> - <%= article.author %>
           </div>

@@ -5,21 +5,22 @@ const config = require('./config')
 const articleRouter = require('./routes/articles')
 const methodOverride = require('method-override')
 const app = express()
-
-var bodyParser = require('body-parser');
-var multer = require('multer');
-var upload = multer();
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const multer = require('multer');
+const upload = multer();
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const Users = require('./models/User');
+const authMiddleware = require('./middleware/authMiddleware');
+const jwt = require('jsonwebtoken');
+const requireAuth = require("./middleware/requireAuth");
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(upload.array());
 app.use(cookieParser());
 app.use(session({
-    secret: config.Session.token,
-    resave: false,
-    saveUninitialized: false
+    secret: config.Session.token, resave: false, saveUninitialized: false
 }));
 
 mongoose.connect('mongodb://' + config.Mongodb.host + '/' + config.Mongodb.name, {
@@ -36,23 +37,11 @@ app.get('/', async (req, res) => {
     var userIP = req.socket.remoteAddress;
     console.log(userIP);
 })
-const jwt = require('jsonwebtoken');
 
-app.get('/adminview', function (req, res) {
-    const token = req.cookies.token;
-    if (token) {
-        jwt.verify(token, config.JWT.token, async function (err, decoded) {
-            if (err) {
-                res.redirect('/login');
-            } else {
-                const userId = decoded.userId;
-                const articles = await Article.find().sort({createdAt: 'desc'});
-                res.render('admin/adminview', {id: userId, articles: articles, isAdmin: req.isAdmin});
-            }
-        });
-    } else {
-        res.redirect('/login');
-    }
+app.get('/adminview', requireAuth, authMiddleware, async function (req, res) {
+    const userId = req.userId;
+    const articles = await Article.find().sort({createdAt: 'desc'});
+    res.render('admin/adminview', {id: userId, articles: articles, isAdmin: req.isAdmin});
 });
 
 app.get('/manifest.json', async (req, res) => {
@@ -83,6 +72,7 @@ app.post('/login', function (req, res) {
             res.redirect('/adminview');
         } else {
             res.redirect('/');
+            console.log("[NOUSER] login failed by: " + req.body.id + ' at ' + new Date().toLocaleString() + "")
         }
     }
 });

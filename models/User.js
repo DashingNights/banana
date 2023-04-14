@@ -1,8 +1,5 @@
-const Users = {
-    admin: {
-        id: "admin",
-        password: "admin",
-        isAdmin: true
-    }
-};
+const Users = [
+    {id: "admin", password: "admin", isAdmin: true},
+    {id: "noob", password: "noob", isAdmin: false}
+];
 module.exports = Users;
