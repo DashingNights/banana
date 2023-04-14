@@ -14,7 +14,7 @@ function authMiddleware(req, res, next) {
             } else {
                 req.userId = decoded.userId;
                 const user = Users.find(u => u.id === req.userId);
-                if (user.isAdmin===true) {
+                if (user.isAdmin === true) {
                     req.isAdmin = user.isAdmin;
                     console.log("login successful by: " + decoded.userId + ' at ' + new Date().toLocaleString() + "")
                     next();
