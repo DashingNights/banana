@@ -1,22 +1,21 @@
 const express = require('express')
-const app = express()
-const mongoose = require('mongoose')
 const config = require('../config');
 const jwt = require('jsonwebtoken');
-function requireAuth(req, res, next, ) {
+
+function requireAuth(req, res, next,) {
     const token = req.cookies.token;
     if (token) {
-      jwt.verify(token, config.JWT.token, function(err, decoded) {
-        if (err) {
-          res.redirect('/login');
-        } else {
-          req.userId = decoded.userId;
-          next();
-        }
-      });
+        jwt.verify(token, config.JWT.token, function (err, decoded) {
+            if (err) {
+                res.redirect('/login');
+            } else {
+                req.userId = decoded.userId;
+                next();
+            }
+        });
     } else {
-      res.redirect('/login');
+        res.redirect('/login');
     }
-  }
+}
 
 module.exports = requireAuth

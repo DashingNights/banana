@@ -1,13 +1,13 @@
 const config = {
-      Mongodb: {
+    Mongodb: {
         host: '127.0.0.1',
         name: 'PROD'
-      },
-      JWT: {
+    },
+    JWT: {
         token: 'secret'
-      },
-      Session:{
+    },
+    Session: {
         token: 'token'
-      }
-   };
+    }
+};
 module.exports = config;
