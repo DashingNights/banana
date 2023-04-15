@@ -23,7 +23,8 @@
     "method-override": "^3.0.0",
     "mongoose": "^5.9.4",
     "multer": "^1.4.5-lts.1",
-    "slugify": "^1.4.0"
+    "slugify": "^1.4.0",
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

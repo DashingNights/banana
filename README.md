@@ -6,7 +6,7 @@ WIKI:
 [Wiki](https://github.com/DashingNights/banana/wiki)
 DEMO:
 [DEMO: https://insider.argus10q.live](https://insider.argus10q.live)
-## Adding to your phone homescreen
+## Adding to your phone home-screen
 [Guide](https://www.macrumors.com/how-to/add-a-web-link-to-home-screen-iphone-ipad/)
 ## Overview
 
@@ -32,7 +32,7 @@ To run the Banana Project, follow the instructions below:
 
 4. Start the server using the following command:
 
-```npm run devStart```
+```npm start```
 
 
 5. Access the website at `http://localhost:1234`
@@ -79,6 +79,7 @@ The Banana Project uses JSON Web Tokens (JWTs) for authentication. When a user l
 
 The Banana Project also has two types of users: regular users and admin users. Admin users have additional privileges, such as being able to delete articles.
 
+You can add or remove users from the `User.js` file. The passwords are NOT hashed for simplicity, please implement if needed.
 ## Conclusion
 
 The Banana Project is a website that allows users to read and write articles. The project has both front-end and back-end components, and it is built using Node.js, Express.js, and MongoDB. The project uses JWTs for authentication and has two types of users: regular users and admin users.```
