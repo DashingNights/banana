@@ -25,7 +25,11 @@ app.use(session({
 
 mongoose.connect('mongodb://' + config.Mongodb.host + '/' + config.Mongodb.name, {
     useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true
-})
+}).then(() =>
+        console.log("Connected to MongoDB")
+).catch(() =>
+    console.log("Error connecting to MongoDB")
+)
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended: false}))
