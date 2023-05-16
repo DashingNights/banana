@@ -1,3 +1,10 @@
 node_modules
 .hintrc
 package-lock.json
+.idea/aws.xml
+.idea/dbnavigator.xml
+.idea/JS.iml
+.idea/jsLibraryMappings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
