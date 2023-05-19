@@ -14,15 +14,7 @@
   <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="/">HKUGAC College Insider <img src="https://subject.hkugac.edu.hk/newsletter/images/logo.jpg" alt="UGAC LOGO" height=30mvw></a>
   </nav>
-  <div id="pull-to-refresh" class="transition">
-    <div class="icon">
-      <i class="fa fa-arrow-down"></i>
-    </div>
-    <div class="message">
-      Pull to refresh
-      <img src="/cdn/loadingdots" alt="loadingImage">
-    </div>
-  </div>
+
 <div class="container" style="padding-top: 20px">
     <h1>Report a Bug</h1>
     <form action="/bugreport" method="POST">
@@ -40,44 +32,5 @@
   <%- include('_footer') %>
 </body>
 <script>
-var startY, endY;
-var lastRefreshTime = 0;
-var isRefreshing = false;
-
-function refresh() {
-  var refreshElement = document.getElementById('pull-to-refresh');
-  refreshElement.classList.add('refreshing');
-  setTimeout(function() {
-    location.reload();
-    window.scrollTo(0, 0);
-    lastRefreshTime = new Date().getTime();
-    isRefreshing = false;
-    refreshElement.classList.remove('refreshing');
-  }, 1000);
-}
-
-document.addEventListener('touchstart', function(e) {
-  startY = e.touches[0].clientY;
-});
-
-document.addEventListener('touchmove', function(e) {
-  endY = e.touches[0].clientY;
-
-  if (endY > startY) {
-    var distance = endY - startY;
-    var scrollPosition = window.pageYOffset;
-
-    if (distance > 30 && scrollPosition == 0 && !isRefreshing) {
-      var currentTime = new Date().getTime();
-      var timeSinceLastRefresh = currentTime - lastRefreshTime;
-      var minTimeBetweenRefreshes = 5000;
-
-      if (timeSinceLastRefresh > minTimeBetweenRefreshes) {
-        isRefreshing = true;
-        refresh();
-      }
-    }
-  }
-});
 </script>
 </html>

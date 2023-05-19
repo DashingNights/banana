@@ -42,7 +42,8 @@ const articleSchema = new mongoose.Schema({
     type: {
         type: String,
         enum: ['Chinese', 'English'],
-        required: true
+        required: true,
+        default: 'English'
     },
     viewCount: {
       type: Number,

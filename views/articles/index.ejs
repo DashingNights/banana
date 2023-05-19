@@ -102,38 +102,40 @@
     location.reload();
   });
   function refresh() {
-    const refreshElement = document.getElementById('refresh');
-    refreshElement.classList.add('refreshing');
+  var refreshElement = document.getElementById('pull-to-refresh');
+  refreshElement.classList.add('refreshing');
+  setTimeout(function() {
+    location.reload();
+    window.scrollTo(0, 0);
+    lastRefreshTime = new Date().getTime();
+    isRefreshing = false;
+    refreshElement.classList.remove('refreshing');
+  }, 1000);
+}
 
-    setTimeout(function() {
-      lastRefreshTime = new Date().getTime();
-      isRefreshing = false;
-      refreshElement.classList.remove('refreshing');
-    }, 1000);
-  }
+document.addEventListener('touchstart', function(e) {
+  startY = e.touches[0].clientY;
+});
 
-  document.addEventListener('touchstart', function(e) {
-    startY = e.touches[0].clientY;
-  });
+document.addEventListener('touchmove', function(e) {
+  endY = e.touches[0].clientY;
 
-  document.addEventListener('touchmove', function(e) {
-    endY = e.touches[0].clientY;
+  if (endY > startY) {
+    var distance = endY - startY;
+    var scrollPosition = window.pageYOffset;
 
-    if (endY > startY) {
-      var distance = endY - startY;
-      var scrollPosition = window.pageYOffset;
+    if (distance > 30 && scrollPosition == 0 && !isRefreshing) {
+      var currentTime = new Date().getTime();
+      var timeSinceLastRefresh = currentTime - lastRefreshTime;
+      var minTimeBetweenRefreshes = 5000;
 
-      if (distance > 30 && scrollPosition == 0 && !isRefreshing) {
-        var currentTime = new Date().getTime();
-        var timeSinceLastRefresh = currentTime - lastRefreshTime;
-
-        if (timeSinceLastRefresh > minTimeBetweenRefreshes) {
-          isRefreshing = true;
-          refresh();
-        }
+      if (timeSinceLastRefresh > minTimeBetweenRefreshes) {
+        isRefreshing = true;
+        refresh();
       }
     }
-  });
+  }
+});
   const searchInput = document.getElementById('search');
 const articles = document.querySelectorAll('.card');
 
