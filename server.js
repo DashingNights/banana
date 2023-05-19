@@ -84,7 +84,7 @@ app.post('/bugreport', async (req, res) => {
           };
           axios(axiosconfig)
           .then((response) => {
-            console.log('Webhook delivered successfully');
+            console.log('Bug report delivered successfully');
             return response;
           })
           .catch((error) => {
