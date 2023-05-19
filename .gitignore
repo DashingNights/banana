@@ -2,3 +2,4 @@ node_modules
 .hintrc
 .idea
 package-lock.json
+config.js

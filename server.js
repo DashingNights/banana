@@ -15,6 +15,7 @@ const authMiddleware = require('./middleware/authMiddleware');
 const jwt = require('jsonwebtoken');
 const requireAuth = require("./middleware/requireAuth");
 const cdn = require('./routes/cdn');
+const axios = require('axios')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -48,7 +49,55 @@ app.get('/adminview', requireAuth, authMiddleware, async function (req, res) {
     const articles = await Article.find().sort({createdAt: 'desc'});
     res.render('admin/adminview', {id: userId, articles: articles, isAdmin: req.isAdmin});
 });
-
+app.get('/bugreport', async (req, res) => {
+    res.render('articles/bugreport');
+});
+app.post('/bugreport', async (req, res) => {
+    const problemtitle = req.body.title;
+    const issue = req.body.issue;
+    //debug
+    // console.log(problemtitle, issue);
+    // console.log(config.Discord.webhook);
+    let embeds = [
+        {
+          title: problemtitle,
+          color: 5174599,
+          footer: {
+            text: `📅 ${Date()}`,
+          },
+          fields: [
+            {
+              name: 'Issue',
+              value: issue
+            },
+          ],
+        },
+      ];
+      let data = JSON.stringify({ embeds });
+    // Send the bug report to a Discord channel using a webhook
+    try {
+        var axiosconfig = {
+            method: 'POST',
+            url: config.Discord.webhook, // Replace with your own webhook URL
+            headers: { 'Content-Type': 'application/json' },
+            data: data,
+          };
+          axios(axiosconfig)
+          .then((response) => {
+            console.log('Webhook delivered successfully');
+            return response;
+          })
+          .catch((error) => {
+            console.log(error);
+            return error;
+          });
+    } catch (error) {
+      console.error('Error sending Discord message:', error.response);
+    }
+  
+    // Redirect to the root URL
+    res.redirect('/');
+  });
 app.get('/manifest.json', async (req, res) => {
     res.sendFile(__dirname + '/public/manifest.json')
 })
