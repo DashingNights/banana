@@ -38,7 +38,7 @@ app.use(methodOverride('_method'))
 
 app.get('/', async (req, res) => {
     const articles = await Article.find().sort({createdAt: 'desc'})
-    res.render('articles/index', {articles: articles})
+    res.render('articles/index', {articles: articles, req: req })
     const userIP = req.socket.remoteAddress;
     console.log(userIP);
 })

@@ -23,5 +23,13 @@
   <textarea style='height: 25vmax' required name="markdown" id="markdown" class="form-control"><%= article.markdown %></textarea>
 </div>
 
+<div class="form-group">
+  <label for="type">Type</label>
+  <select required name="type" id="type" class="form-control">
+    <option value="Chinese">Chinese</option>
+    <option value="English">English</option>
+  </select>
+</div>
+
 <a href="/adminview" class="btn btn-secondary">Cancel</a>
 <button type="submit" class="btn btn-primary">Save</button>

@@ -38,6 +38,15 @@ const articleSchema = new mongoose.Schema({
     sanitizedHtml: {
         type: String,
         required: true
+    },
+    type: {
+        type: String,
+        enum: ['Chinese', 'English'],
+        required: true
+    },
+    viewCount: {
+      type: Number,
+      default: 0
     }
 })
 
