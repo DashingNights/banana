@@ -26,8 +26,9 @@
 <div class="form-group">
   <label for="type">Type</label>
   <select required name="type" id="type" class="form-control">
-    <option value="Chinese">Chinese</option>
-    <option value="English">English</option>
+    <option disabled selected value="">Select One</option>
+    <option value="Chinese" <%= article.type === 'Chinese' ? 'selected' : '' %>>Chinese</option>
+    <option value="English" <%= article.type === 'English' ? 'selected' : '' %>>English</option>
   </select>
 </div>
 

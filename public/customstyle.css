@@ -76,3 +76,6 @@ body {
   #pull-to-refresh.transition.refreshing {
     transform: translateY(85px); /* Adjust this value to set the pulled-down position */
   }
+  html {
+    scroll-behavior: smooth;
+  }

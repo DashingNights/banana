@@ -30,7 +30,8 @@ router.post('/', requireAuth, authMiddleware, async (req, res, next) => {
     title: req.body.title.split('').map(char => '\\u' + char.charCodeAt(0).toString(16).padStart(4, '0')).join(''),
     description: req.body.description,
     markdown: req.body.markdown,
-    hashtags: req.body.hashtags
+    hashtags: req.body.hashtags,
+    type: req.body.type
   });
   try {
     const newArticle = await article.save();
