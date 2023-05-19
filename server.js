@@ -14,6 +14,7 @@ const Users = require('./models/User');
 const authMiddleware = require('./middleware/authMiddleware');
 const jwt = require('jsonwebtoken');
 const requireAuth = require("./middleware/requireAuth");
+const cdn = require('./routes/cdn');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -38,7 +39,7 @@ app.use(methodOverride('_method'))
 app.get('/', async (req, res) => {
     const articles = await Article.find().sort({createdAt: 'desc'})
     res.render('articles/index', {articles: articles})
-    const userIP = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    const userIP = req.socket.remoteAddress;
     console.log(userIP);
 })
 
@@ -87,7 +88,7 @@ app.get('/logout', function (req, res) {
 
 
 app.use('/articles', articleRouter)
-
+app.use('/upload', cdn);
 app.listen(1234)
 process.on('uncaughtException', function (err) {
     console.log('Caught exception: ' + err);

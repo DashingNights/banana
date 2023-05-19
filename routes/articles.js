@@ -1,58 +1,70 @@
-const express = require('express')
-const router = express.Router()
-const Article = require('./../models/article')
-const authMiddleware = require('../middleware/authMiddleware')
-const requireAuth = require('../middleware/requireAuth')
+const express = require('express');
+const router = express.Router();
+const Article = require('../models/article');
+const authMiddleware = require('../middleware/authMiddleware');
+const requireAuth = require('../middleware/requireAuth');
 
 router.get('/new', requireAuth, authMiddleware, (req, res) => {
-    res.render('articles/new', {article: new Article()})
-})
+  res.render('articles/new', { article: new Article() });
+});
 
 router.get('/edit/:id', requireAuth, authMiddleware, async (req, res) => {
-    const article = await Article.findById(req.params.id)
-    res.render('articles/edit', {article: article})
-})
+    const article = await Article.findById(req.params.id);
+    article.title = article.title.replace(/\\u[\dA-F]{4}/gi, function(match) {
+      return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
+    });
+    res.render('articles/edit', { article: article });
+  });
 
 router.get('/:slug', async (req, res) => {
-    const article = await Article.findOne({slug: req.params.slug})
-    if (article == null) res.redirect('/')
-    res.render('articles/show', {article: article})
-})
+  const article = await Article.findOne({ slug: req.params.slug });
+  if (article == null) res.redirect('/');
+  article.title = article.title.replace(/\\u[\dA-F]{4}/gi, function(match) {
+    return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
+  });
+  res.render('articles/show', { article: article });
+});
 
 router.post('/', requireAuth, authMiddleware, async (req, res, next) => {
-    req.article = new Article()
-    next()
-}, saveArticleAndRedirect('new'))
-
+  const article = new Article({
+    title: req.body.title.split('').map(char => '\\u' + char.charCodeAt(0).toString(16).padStart(4, '0')).join(''),
+    description: req.body.description,
+    markdown: req.body.markdown,
+    hashtags: req.body.hashtags
+  });
+  try {
+    const newArticle = await article.save();
+    res.redirect(`/articles/${newArticle.slug}`);
+  } catch (err) {
+    console.error(err);
+    res.render('articles/new', { article: article });
+  }
+});
 
 router.put('/:id', requireAuth, authMiddleware, async (req, res, next) => {
-    req.article = await Article.findById(req.params.id)
-    next()
-}, saveArticleAndRedirect('edit'))
+  req.article = await Article.findById(req.params.id);
+  next();
+}, saveArticleAndRedirect('edit'));
 
 router.delete('/:id', requireAuth, authMiddleware, async (req, res) => {
-    await Article.findByIdAndDelete(req.params.id)
-    res.redirect('/')
-})
+  await Article.findByIdAndDelete(req.params.id);
+  res.redirect('/');
+});
 
 function saveArticleAndRedirect(path) {
-    return async (req, res) => {
-        let article = req.article
-        article.hashtags = req.body.hashtags
-        article.title = req.body.title
-        // article.createdAt = req.body.date
-        // console.log(article.createdAt)
-        article.description = req.body.description
-        article.markdown = req.body.markdown
-        article.author = req.body.author
-        try {
-            article = await article.save()
-            res.redirect(`/articles/${article.slug}`)
-        } catch (e) {
-            console.log(e)
-            res.render(`articles/${path}`, {article: article})
-        }
+  return async (req, res) => {
+    let article = req.article;
+    article.title = req.body.title.split('').map(char => '\\u' + char.charCodeAt(0).toString(16).padStart(4, '0')).join('');
+    article.description = req.body.description;
+    article.markdown = req.body.markdown;
+    article.hashtags = req.body.hashtags;
+    try {
+      article = await article.save();
+      res.redirect(`/articles/${article.slug}`);
+    } catch (err) {
+      console.error(err);
+      res.render(`articles/${path}`, { article: article });
     }
+  };
 }
-
 module.exports = router;

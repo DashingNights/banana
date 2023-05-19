@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="138fa7d6-f48e-45d7-982c-43d94d6d1355" name="Changes" comment="update color">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/authMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/authMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/requireAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/requireAuth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/User.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/article.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/article.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/customstyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/customstyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/articles.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/articles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/admin/adminview.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/admin/adminview.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/admin/login.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/admin/login.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/articles/_footer.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/articles/_footer.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/articles/_form_fields.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/articles/_form_fields.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/articles/edit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/articles/edit.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/articles/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/articles/index.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/articles/new.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/articles/new.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/articles/portal.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/articles/portal.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/articles/show.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/articles/show.ejs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2OQB0OOJoquXgdNoyqCLC9ouLRh" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+    <option name="showScratchesAndConsoles" value="false" />
+    <option name="sortByType" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;16.16.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;16.18.23&quot;,
+    &quot;last_opened_file_path&quot;: &quot;A:/JS/banana/views/admin&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;aws&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="A:\JS\banana\views\admin" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="A:\JS\banana" />
+      <recent name="A:\JS\banana\views\articles" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="138fa7d6-f48e-45d7-982c-43d94d6d1355" name="Changes" comment="" />
+      <created>1681482701807</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1681482701807</updated>
+      <workItem from="1681482702949" duration="128000" />
+      <workItem from="1681482849956" duration="191000" />
+      <workItem from="1681483051888" duration="607000" />
+      <workItem from="1681483683841" duration="61000" />
+      <workItem from="1681483754471" duration="5842000" />
+      <workItem from="1681489927773" duration="374000" />
+      <workItem from="1681529375218" duration="577000" />
+      <workItem from="1681529973491" duration="313000" />
+      <workItem from="1681543994995" duration="4081000" />
+      <workItem from="1683464004697" duration="939000" />
+      <workItem from="1683464967558" duration="719000" />
+      <workItem from="1683888409552" duration="552000" />
+      <workItem from="1684160594141" duration="5891000" />
+      <workItem from="1684500481660" duration="91000" />
+      <workItem from="1684500586725" duration="17000" />
+      <workItem from="1684500615082" duration="194000" />
+    </task>
+    <task id="LOCAL-00001" summary="Reformatted code for vis">
+      <created>1681483581018</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681483581018</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Redone auth system for multi-user support">
+      <created>1681485940414</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1681485940414</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix faulty heading and remove svg">
+      <created>1681486920358</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1681486920358</updated>
+    </task>
+    <task id="LOCAL-00004" summary="attempted test on sqlite implementation">
+      <created>1681530144909</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1681530144909</updated>
+    </task>
+    <task id="LOCAL-00005" summary="UAC implementation UNFINISHED">
+      <created>1681548109236</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1681548109236</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Reimplemented footer for better code-readability">
+      <created>1683464829729</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1683464829729</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Reimplemented footer for better code-readability">
+      <created>1683464873359</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1683464873359</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Minor error log message amendment">
+      <created>1683465273382</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1683465273382</updated>
+    </task>
+    <task id="LOCAL-00009" summary="quickfix on image cover">
+      <created>1684160823849</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1684160823849</updated>
+    </task>
+    <task id="LOCAL-00010" summary="update color">
+      <created>1684161573996</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1684161573996</updated>
+    </task>
+    <task id="LOCAL-00011" summary="update color">
+      <created>1684161637170</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1684161637170</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Reformatted code for vis" />
+    <MESSAGE value="Redone auth system for multi-user support" />
+    <MESSAGE value="fix faulty heading and remove svg" />
+    <MESSAGE value="attempted test on sqlite implementation" />
+    <MESSAGE value="UAC implementation UNFINISHED" />
+    <MESSAGE value="Reimplemented footer for better code-readability" />
+    <MESSAGE value="Minor error log message amendment" />
+    <MESSAGE value="quickfix on image cover" />
+    <MESSAGE value="update color" />
+    <option name="LAST_COMMIT_MESSAGE" value="update color" />
+  </component>
+</project>
