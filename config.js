@@ -9,11 +9,9 @@ const config = {
     Session: {
         token: 'token'
     },
-    Email: {
-        host: 'smtp.example.com',
-        port: 587,
-        from: '',
-        pass: ''
+    Discord: {
+        // this is for debugging bug report, refer to server.js
+        webhook: 'https://discord.com/api/webhooks/1234567890/abcdefghijklmnopqrstuvwxyz'
     }
 };
 module.exports = config;
