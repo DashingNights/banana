@@ -10,7 +10,7 @@ const config = {
         token: 'token'
     },
     Discord: {
-        webhook: 'https://discord.com/api/webhooks/1234567890/abcdefghijklmnopqrstuvwxyz'
+        webhook: 'https://discord.com/api/webhooks/1109138023620284416/th9cnHlVZsAnC7cptkuiUTWIHMNGe1DiMHzpNkHGbPsa_pAukDZZrUH_3O6CabMnoYDs'
     }
 };
 module.exports = config;
