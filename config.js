@@ -8,6 +8,12 @@ const config = {
     },
     Session: {
         token: 'token'
+    },
+    Email: {
+        host: 'smtp.example.com',
+        port: 587,
+        from: '',
+        pass: ''
     }
 };
 module.exports = config;
