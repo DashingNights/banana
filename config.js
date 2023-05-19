@@ -8,6 +8,9 @@ const config = {
     },
     Session: {
         token: 'token'
+    },
+    Discord: {
+        webhook: 'https://discord.com/api/webhooks/1234567890/abcdefghijklmnopqrstuvwxyz'
     }
 };
 module.exports = config;
