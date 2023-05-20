@@ -36,7 +36,29 @@ mongoose.connect('mongodb://' + config.Mongodb.host + '/' + config.Mongodb.name,
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended: false}))
 app.use(methodOverride('_method'))
-
+app.use(function(req, res, next) {
+    // Check if the fbclid parameter is present in the request URL
+    if (req.query.fbclid) {
+      // Remove the fbclid parameter from the request URL
+      const urlWithoutFbclid = req.originalUrl.replace(/[\?&]fbclid=[^&#]+/g, '');
+      // Redirect the user to the same URL without the fbclid parameter
+      return res.redirect(urlWithoutFbclid);
+    }
+    next();
+  });
+app.use(function(req, res, next) {
+// Check if the fbclid parameter is present in the request URL
+if (req.query.fbclid) {
+    // Remove the fbclid parameter from the request URL
+    const urlWithoutFbclid = req.originalUrl.replace(/[\?&]fbclid=[^&#]+/g, '');
+    // Redirect the user to the same URL without the fbclid parameter
+    return res.redirect(urlWithoutFbclid);
+}
+next();
+});
+app.get('*', function(req, res) {
+    res.redirect('/');
+  });
 app.get('/', async (req, res) => {
     const articles = await Article.find().sort({createdAt: 'desc'})
     res.render('articles/index', {articles: articles, req: req })
