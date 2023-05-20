@@ -12,6 +12,7 @@ class DiscordLogger {
     logEvent(Event, logmsg) {
         let hook = config.Discord.webhook2;
         let PASSTYPE = 'Event';
+        let extraparam = null;
         this.sendMessage(Event, logmsg, hook, PASSTYPE);
     }
 
@@ -21,10 +22,12 @@ class DiscordLogger {
         var DA_CALA;
         if (PASSTYPE == 'Bug') {
             DA_CALA = 16728192;
+            var extraparam = ' ';
             // console.log('bug');
             // console.log(DA_CALA)
         } else if (PASSTYPE == 'Event') {
             DA_CALA = 65280;
+            var extraparam = ' ';
             // console.log('log');
             // console.log(DA_CALA)
         }
@@ -38,7 +41,7 @@ class DiscordLogger {
             fields: [
                 {
                 name: '⠀',
-                value: CONTENT
+                value: `${CONTENT} , ${extraparam}`,
                 },
             ],
             },

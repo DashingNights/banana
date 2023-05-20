@@ -3,6 +3,9 @@ const router = express.Router();
 const Article = require('../models/article');
 const authMiddleware = require('../middleware/authMiddleware');
 const requireAuth = require('../middleware/requireAuth');
+const { DiscordLogger } = require('../discordlogger/webhook');
+const logger = new DiscordLogger();
+
 
 router.get('/new', requireAuth, authMiddleware, (req, res) => {
   res.render('articles/new', { article: new Article() });
@@ -35,12 +38,14 @@ router.post('/', requireAuth, authMiddleware, async (req, res, next) => {
   });
   try {
     const newArticle = await article.save();
+    
     res.redirect(`/articles/${newArticle.slug}`);
   } catch (err) {
     console.error(err);
     res.render('articles/new', { article: article });
   }
 });
+
 
 router.put('/:id', requireAuth, authMiddleware, async (req, res, next) => {
   req.article = await Article.findById(req.params.id);
@@ -63,6 +68,7 @@ function saveArticleAndRedirect(path) {
     article.type = req.body.type;
     try {
       article = await article.save();
+      logger.logEvent('Article Edited', `Article ${article.title} was edited`);
       res.redirect(`/articles/${article.slug}`);
     } catch (err) {
       console.error(err);
