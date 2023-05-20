@@ -164,3 +164,6 @@ app.listen(1234)
 process.on('uncaughtException', function (err) {
     console.log('Caught exception: ' + err);
 });
+app.get('*', function(req, res) {
+  res.redirect('/');
+});
