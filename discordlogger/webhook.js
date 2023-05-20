@@ -21,12 +21,12 @@ class DiscordLogger {
         var DA_CALA;
         if (PASSTYPE == 'Bug') {
             DA_CALA = 16728192;
-            console.log('bug');
-            console.log(DA_CALA)
+            // console.log('bug');
+            // console.log(DA_CALA)
         } else if (PASSTYPE == 'Event') {
             DA_CALA = 65280;
-            console.log('log');
-            console.log(DA_CALA)
+            // console.log('log');
+            // console.log(DA_CALA)
         }
         let embeds = [
             {

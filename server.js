@@ -14,8 +14,9 @@ const Users = require('./models/User');
 const authMiddleware = require('./middleware/authMiddleware');
 const jwt = require('jsonwebtoken');
 const requireAuth = require("./middleware/requireAuth");
-const cdn = require('./routes/cdn');
-const axios = require('axios')
+// const cdn = require('./routes/cdn');
+const { DiscordLogger } = require('./discordlogger/webhook');
+const logger = new DiscordLogger();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -49,6 +50,7 @@ app.use(function(req, res, next) {
 app.use(function(req, res, next) {
 // Check if the fbclid parameter is present in the request URL
 if (req.query.fbclid) {
+    logger.logEvent('User from INSTAGERAM visited the homepage', req.headers['cf-connecting-ip'] || req.headers['x-real-ip'] || req.socket.remoteAddress);
     // Remove the fbclid parameter from the request URL
     const urlWithoutFbclid = req.originalUrl.replace(/[\?&]fbclid=[^&#]+/g, '');
     // Redirect the user to the same URL without the fbclid parameter
@@ -62,18 +64,20 @@ app.get('/', async (req, res) => {
   res.render('articles/index', {articles: articles, req: req })
   const userIP = req.headers['cf-connecting-ip'] || req.headers['x-real-ip'] || req.socket.remoteAddress;
   console.log(userIP);
+  logger.logEvent('User visited the homepage', userIP);
 })
 
 app.get('/adminview', requireAuth, authMiddleware, async function (req, res) {
     const userId = req.userId;
     const articles = await Article.find().sort({createdAt: 'desc'});
     res.render('admin/adminview', {id: userId, articles: articles, isAdmin: req.isAdmin, req: req });
-});
+    logger.logEvent('User visited the admin view', req.headers['cf-connecting-ip'] || req.headers['x-real-ip'] || req.socket.remoteAddress);
+  });
 app.get('/bugreport', async (req, res) => {
     res.render('articles/bugreport');
+    logger.logEvent('User visited the bug report page', req.headers['cf-connecting-ip'] || req.headers['x-real-ip'] || req.socket.remoteAddress);
 });
-const { DiscordLogger } = require('./discordlogger/webhook');
-const logger = new DiscordLogger();
+
 
 app.post('/bugreport', async (req, res) => {
     const problemtitle = req.body.title;
@@ -92,6 +96,7 @@ app.get('/customstyle.css', async (req, res) => {
 
 app.get('/login', function (req, res) {
     res.render('admin/login');
+    logger.logEvent('User visited the login page', req.headers['cf-connecting-ip'] || req.headers['x-real-ip'] || req.socket.remoteAddress);
 });
 app.get('/portal', function (req, res) {
     res.render('articles/portal');
@@ -101,6 +106,7 @@ app.get('/cdn/loadingdots', function (req, res) {
 });
 
 app.post('/login', function (req, res) {
+  logger.logEvent('User attempt login', req.headers['cf-connecting-ip'] || req.headers['x-real-ip'] || req.socket.remoteAddress);
     if (!req.body.id || !req.body.password) {
         res.redirect('/');
     } else {
@@ -112,6 +118,7 @@ app.post('/login', function (req, res) {
         } else {
             res.redirect('/');
             console.log("[NOUSER] login failed by: " + req.body.id + ' at ' + new Date().toLocaleString() + "")
+            logger.logEvent('Login Failed', 'User: ' + req.body.id + ' at ' + new Date().toLocaleString() + "" + ' IP: ' + req.headers['cf-connecting-ip'] || req.headers['x-real-ip'] || req.socket.remoteAddress);
         }
     }
 });
@@ -122,16 +129,18 @@ app.get('/logout', function (req, res) {
 
 
 app.use('/articles', articleRouter)
-app.use('/upload', cdn);
+// app.use('/upload', cdn);
 app.listen(1234)
 process.on('uncaughtException', function (err) {
     console.log('Caught exception: ' + err);
+    logger.bugReport('Uncaught Exception', err.stack);
 });
 app.get('*', function(req, res) {
   res.redirect('/');
 });
 
 app.use(function(err, req, res, next) {
+  logger.bugReport('Internal Server Error', err.stack);
   console.error(err.stack);
   res.status(500).send('Internal Server Error');
 });
