@@ -1,4 +1,4 @@
-# Banana Project
+# Banana Project ( wiki & such might sometimes be outdated)
 
 This is a one-page documentation for the Banana Project. This project is primarily made for the HKUGACollege student-ran 'College Insider'. Please edit to fit usage purposes when forked.
 
@@ -29,13 +29,41 @@ To run the Banana Project, follow the instructions below:
 
 [Installing MongoDB](https://www.mongodb.com/docs/manual/administration/install-community/)
 
+4. Create the config.js file in the root directory and add the following code:
 
-4. Start the server using the following command:
+```javascript
+    const config = {
+    Mongodb: {
+        host: '127.0.0.1',
+        name: 'PROD'
+    },
+    JWT: {
+        //Create a JWT token (google please)
+        token: 'secret'
+    },
+    Session: {
+        //Create a web session token (google please)
+        token: 'token'
+    },
+    Discord: {
+        //THIS IS FOR BUG REPORTING
+        webhook: 'https://discord.com/api/webhooks/CHANGE_THIS_LINK',
+        //THIS IS FOR LOGGING
+        webhook2:'https://discord.com/api/webhooks/CHANGE_THIS_LINK'
+        //THESE FEATURES CAN ONLY BE TURNED OFF ( IN CODE ) IF YOU KNOW WHAT YOU ARE DOING, PLEASE DO NOT TURN THEM OFF IF YOU DO NOT KNOW WHAT YOU ARE DOING, HAVING A LOGGING SYSTEM IS VERY IMPORTANT FOR DEBUGGING
+    }
+};
+module.exports = config;
+
+```
+
+
+5. Start the server using the following command:
 
 ```npm start```
 
 
-5. Access the website at `http://localhost:1234`
+6. Access the website at `http://localhost:1234`
 
 ## Front-end
 
