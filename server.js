@@ -56,9 +56,7 @@ if (req.query.fbclid) {
 }
 next();
 });
-app.get('*', function(req, res) {
-    res.redirect('/');
-  });
+
 app.get('/', async (req, res) => {
     const articles = await Article.find().sort({createdAt: 'desc'})
     res.render('articles/index', {articles: articles, req: req })
