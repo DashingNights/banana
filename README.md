@@ -6,8 +6,11 @@ WIKI:
 [Wiki](https://github.com/DashingNights/banana/wiki)
 DEMO:
 [DEMO: https://insider.argus10q.live](https://insider.argus10q.live)
+
 ## Adding to your phone home-screen
+
 [Guide](https://www.macrumors.com/how-to/add-a-web-link-to-home-screen-iphone-ipad/)
+
 ## Overview
 
 The Banana Project is a website that allows users to read and write articles. The project has both front-end and back-end components, and it is built using Node.js, Express.js, and MongoDB.
@@ -17,13 +20,12 @@ The Banana Project is a website that allows users to read and write articles. Th
 To run the Banana Project, follow the instructions below:
 
 1. Clone the repository using the following command:
-   
-```git clone https://github.com/DashingNights/banana.git```
 
+`git clone https://github.com/DashingNights/banana.git`
 
 2. Install the dependencies using the following command:
 
-```npm install```
+`npm install`
 
 3. Install MongoDB
 
@@ -32,36 +34,33 @@ To run the Banana Project, follow the instructions below:
 4. Create the config.js file in the root directory and add the following code:
 
 ```javascript
-    const config = {
-    Mongodb: {
-        host: '127.0.0.1',
-        name: 'PROD'
-    },
-    JWT: {
-        //Create a JWT token (google please)
-        token: 'secret'
-    },
-    Session: {
-        //Create a web session token (google please)
-        token: 'token'
-    },
-    Discord: {
-        //THIS IS FOR BUG REPORTING
-        webhook: 'https://discord.com/api/webhooks/CHANGE_THIS_LINK',
-        //THIS IS FOR LOGGING
-        webhook2:'https://discord.com/api/webhooks/CHANGE_THIS_LINK'
-        //THESE FEATURES CAN ONLY BE TURNED OFF ( IN CODE ) IF YOU KNOW WHAT YOU ARE DOING, PLEASE DO NOT TURN THEM OFF IF YOU DO NOT KNOW WHAT YOU ARE DOING, HAVING A LOGGING SYSTEM IS VERY IMPORTANT FOR DEBUGGING
-    }
+const config = {
+  Mongodb: {
+    host: "127.0.0.1",
+    name: "PROD",
+  },
+  JWT: {
+    //Create a JWT token (google please)
+    token: "secret",
+  },
+  Session: {
+    //Create a web session token (google please)
+    token: "token",
+  },
+  Discord: {
+    //THIS IS FOR BUG REPORTING
+    webhook: "https://discord.com/api/webhooks/CHANGE_THIS_LINK",
+    //THIS IS FOR LOGGING
+    webhook2: "https://discord.com/api/webhooks/CHANGE_THIS_LINK",
+    //THESE FEATURES CAN ONLY BE TURNED OFF ( IN CODE ) IF YOU KNOW WHAT YOU ARE DOING, PLEASE DO NOT TURN THEM OFF IF YOU DO NOT KNOW WHAT YOU ARE DOING, HAVING A LOGGING SYSTEM IS VERY IMPORTANT FOR DEBUGGING
+  },
 };
 module.exports = config;
-
 ```
-
 
 5. Start the server using the following command:
 
-```npm start```
-
+`npm start`
 
 6. Access the website at `http://localhost:1234`
 
@@ -108,6 +107,7 @@ The Banana Project uses JSON Web Tokens (JWTs) for authentication. When a user l
 The Banana Project also has two types of users: regular users and admin users. Admin users have additional privileges, such as being able to delete articles.
 
 You can add or remove users from the `User.js` file. The passwords are NOT hashed for simplicity, please implement if needed.
+
 ## Conclusion
 
 The Banana Project is a website that allows users to read and write articles. The project has both front-end and back-end components, and it is built using Node.js, Express.js, and MongoDB. The project uses JWTs for authentication and has two types of users: regular users and admin users.```
