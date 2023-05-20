@@ -1,4 +1,4 @@
-const { DiscordLogger } = require('./discordlogger/webhook');
+const { DiscordLogger } = require('../discordlogger/webhook');
 
 const logger = new DiscordLogger();
 

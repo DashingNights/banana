@@ -58,11 +58,10 @@ next();
 });
 
 app.get('/', async (req, res) => {
-    const articles = await Article.find().sort({createdAt: 'desc'})
-    res.render('articles/index', {articles: articles, req: req })
-    const userIP = req.socket.remoteAddress;
-    console.log(userIP);
-
+  const articles = await Article.find().sort({createdAt: 'desc'})
+  res.render('articles/index', {articles: articles, req: req })
+  const userIP = req.headers['cf-connecting-ip'] || req.headers['x-real-ip'] || req.socket.remoteAddress;
+  console.log(userIP);
 })
 
 app.get('/adminview', requireAuth, authMiddleware, async function (req, res) {
@@ -130,4 +129,9 @@ process.on('uncaughtException', function (err) {
 });
 app.get('*', function(req, res) {
   res.redirect('/');
+});
+
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Internal Server Error');
 });

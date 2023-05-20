@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { faker } = require('@faker-js/faker');
-const Article = require('./models/article');
-const config = require('./config');
+const Article = require('../models/article');
+const config = require('../config');
 
 // Connect to the database
 mongoose.connect('mongodb://' + config.Mongodb.host + '/' + config.Mongodb.name, {
