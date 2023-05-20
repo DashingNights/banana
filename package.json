@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "nodemon test.js"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +31,7 @@
     "sqlite3": "^5.1.6"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.1",
     "nodemon": "^2.0.2"
   }
 }
