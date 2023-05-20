@@ -154,5 +154,27 @@ searchInput.addEventListener('input', () => {
     }
   });
 });
+let page = 1;
+
+function loadArticles() {
+  fetch(`/articles?page=${page}`)
+    .then(res => res.text())
+    .then(html => {
+      const articlesContainer = document.querySelector('#articles-container');
+      articlesContainer.insertAdjacentHTML('beforeend', html);
+      page++;
+    })
+    .catch(err => console.error(err));
+}
+
+window.addEventListener('scroll', () => {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+  if (scrollTop + clientHeight >= scrollHeight - 5) {
+    loadArticles();
+  }
+});
+
+loadArticles();
 </script>
 </html>
