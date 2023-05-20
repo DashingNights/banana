@@ -67,7 +67,7 @@ app.get('/', async (req, res) => {
 app.get('/adminview', requireAuth, authMiddleware, async function (req, res) {
     const userId = req.userId;
     const articles = await Article.find().sort({createdAt: 'desc'});
-    res.render('admin/adminview', {id: userId, articles: articles, isAdmin: req.isAdmin});
+    res.render('admin/adminview', {id: userId, articles: articles, isAdmin: req.isAdmin, req: req });
 });
 app.get('/bugreport', async (req, res) => {
     res.render('articles/bugreport');
