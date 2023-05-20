@@ -4,20 +4,41 @@ const config = require('../config');
 
 class DiscordLogger {
 
-    sendMessage(Event, logmsg) {
+    bugReport(bug, bugmsg) {
+        let hook = config.Discord.webhook;
+        let PASSTYPE = 'Bug';
+        this.sendMessage(bug, bugmsg, hook, PASSTYPE);
+    }
+    logEvent(Event, logmsg) {
+        let hook = config.Discord.webhook2;
+        let PASSTYPE = 'Event';
+        this.sendMessage(Event, logmsg, hook, PASSTYPE);
+    }
+
+    sendMessage(TITLE, CONTENT, hook, PASSTYPE) {
         //date for Hong Kong time
         var date = new Date().toLocaleDateString('en-US', { timeZone: 'Asia/Hong_Kong' });
+        var DA_CALA;
+        if (PASSTYPE == 'Bug') {
+            DA_CALA = 16728192;
+            console.log('bug');
+            console.log(DA_CALA)
+        } else if (PASSTYPE == 'Event') {
+            DA_CALA = 65280;
+            console.log('log');
+            console.log(DA_CALA)
+        }
         let embeds = [
             {
-            title: Event,
-            color: ff1100,
+            title: TITLE,
+            color:  DA_CALA,
             footer: {
                 text: `📅 ${date}`,
             },
             fields: [
                 {
                 name: '⠀',
-                value: logmsg
+                value: CONTENT
                 },
             ],
             },
@@ -27,7 +48,7 @@ class DiscordLogger {
         try {
             var axiosconfig = {
                 method: 'POST',
-                url: config.Discord.webhook2, // Replace with your own webhook URL
+                url: hook, 
                 headers: { 'Content-Type': 'application/json' },
                 data: data,
             };
@@ -45,3 +66,5 @@ class DiscordLogger {
         }
     }
 }
+
+exports.DiscordLogger = DiscordLogger;

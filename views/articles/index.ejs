@@ -58,7 +58,8 @@
           return String.fromCharCode(parseInt(p1, 16));
         });
       } %>
-      <% articles.forEach(article => { %>
+      <% articles.forEach(article => { 
+        if (req.query.type === 'Both' || article.type === req.query.type) {%>
         <div class="card mt-4">
           <div class="card-body" style="background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.96),rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.7)), url('<%= getImageUrl(article.sanitizedHtml) %>'); background-size: cover; background-repeat: no-repeat; background-size: 100% fit;">
             <h6 class="card-title"><%= decodeUnicode(article.title) %></h6>
@@ -71,7 +72,7 @@
             </div>
           </div>
         </div>
-      <% }); %>
+      <% }}); %>
     </div>
   </div>
   <p><br><br></p>
@@ -95,22 +96,13 @@ const queryParams = new URLSearchParams(window.location.search);
       return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
     });
   }
-
-
-
-
-
-
-
-
-
-
   const minTimeBetweenRefreshes = 5000;
   let lastRefreshTime = 0;
   let isRefreshing = false;
   let startY = 0;
   let endY = 0;
 
+  
   // Add the type=Both query parameter to the URL if there are no query parameters present
   if (queryParams.toString() === '') {
     queryParams.set('type', 'Both');
@@ -127,6 +119,9 @@ const queryParams = new URLSearchParams(window.location.search);
     window.history.replaceState({}, '', `${window.location.pathname}?${queryParams.toString()}`);
     location.reload();
   });
+
+
+
   function refresh() {
   var refreshElement = document.getElementById('pull-to-refresh');
   refreshElement.classList.add('refreshing');

@@ -62,6 +62,7 @@ app.get('/', async (req, res) => {
     res.render('articles/index', {articles: articles, req: req })
     const userIP = req.socket.remoteAddress;
     console.log(userIP);
+
 })
 
 app.get('/adminview', requireAuth, authMiddleware, async function (req, res) {
@@ -72,49 +73,14 @@ app.get('/adminview', requireAuth, authMiddleware, async function (req, res) {
 app.get('/bugreport', async (req, res) => {
     res.render('articles/bugreport');
 });
+const { DiscordLogger } = require('./discordlogger/webhook');
+const logger = new DiscordLogger();
+
 app.post('/bugreport', async (req, res) => {
     const problemtitle = req.body.title;
     const issue = req.body.issue;
-    //debug
-    // console.log(problemtitle, issue);
-    // console.log(config.Discord.webhook);
-    let embeds = [
-        {
-          title: problemtitle,
-          color: 5174599,
-          footer: {
-            text: `📅 ${Date()}`,
-          },
-          fields: [
-            {
-              name: 'Issue',
-              value: issue
-            },
-          ],
-        },
-      ];
-      let data = JSON.stringify({ embeds });
-    // Send the bug report to a Discord channel using a webhook
-    try {
-        var axiosconfig = {
-            method: 'POST',
-            url: config.Discord.webhook, // Replace with your own webhook URL
-            headers: { 'Content-Type': 'application/json' },
-            data: data,
-          };
-          axios(axiosconfig)
-          .then((response) => {
-            console.log('Bug report delivered successfully');
-            return response;
-          })
-          .catch((error) => {
-            console.log(error);
-            return error;
-          });
-    } catch (error) {
-      console.error('Error sending Discord message:', error.response);
-    }
-  
+    
+    logger.bugReport(problemtitle, issue);
     // Redirect to the root URL
     res.redirect('/');
   });
