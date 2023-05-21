@@ -225,22 +225,24 @@ const queryParams = new URLSearchParams(window.location.search);
   let endY = 0;
 
   
-
   const typeSelect = document.getElementById('type');
 
-  // Add an event listener to the select element that listens for the change event
-  typeSelect.addEventListener('change', () => {
-    queryParams.set('type', typeSelect.value);
-    window.history.replaceState({}, '', `${window.location.pathname}?${queryParams.toString()}`);
-    location.reload();
-  });
+// Add an event listener to the select element that listens for the change event
+typeSelect.addEventListener('change', () => {
+  queryParams.set('type', typeSelect.value);
+  queryParams.set('landing', 'false'); // Set the landing parameter to false
+  window.history.replaceState({}, '', `/home?${queryParams.toString()}`);
+  location.reload();
+});
 
 
 
-  function refresh() {
+function refresh() {
   var refreshElement = document.getElementById('pull-to-refresh');
   refreshElement.classList.add('refreshing');
   setTimeout(function() {
+    queryParams.set('landing', 'false'); // Set the landing parameter to false
+    window.history.replaceState({}, '', `/home?${queryParams.toString()}`); // Reload the page to the /home path
     location.reload();
     window.scrollTo(0, 0);
     lastRefreshTime = new Date().getTime();
