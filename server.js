@@ -72,8 +72,13 @@ app.use(function (req, res, next) {
 });
 
 app.get("/", async (req, res) => {
+  res.render("articles/landingload");
+});
+
+app.get("/home", async (req, res) => {
+  const shouldShowOverlay = req.query.landing ==='true'
   const articles = await Article.find().sort({ createdAt: "desc" });
-  res.render("articles/index", { articles: articles, req: req });
+  res.render("articles/index", { articles: articles, req: req, shouldShowOverlay });
   const userIP =
     req.headers["cf-connecting-ip"] ||
     req.headers["x-real-ip"] ||

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/customstyle.css" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="manifest" href="/manifest.json" />
+    <link
+      rel="icon"
+      href="https://subject.hkugac.edu.hk/newsletter/images/logo.jpg"
+    />
+    <title>College Insider</title>
+    <style>
+      body {
+        margin-top: 28vh;
+        display: flow-root;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .logo-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      img {
+        max-width: 90%;
+        max-height: 100%;
+      }
+      .loading-circle {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 2s linear infinite;
+        margin-top: 20px;
+      }
+      @media (min-width: 576px) {
+        img {
+          max-width: 50%;
+          max-height: 50%;
+        }
+        .loading-circle {
+          margin-top: 20px;
+        }
+      }
+      @media (min-width: 768px) {
+        img {
+          max-width: 40%;
+          max-height: 40%;
+        }
+        .loading-circle {
+          margin-top: 20px;
+        }
+      }
+      @media (min-width: 992px) {
+        img {
+          max-width: 30%;
+          max-height: 30%;
+        }
+        .loading-circle {
+          margin-top: 20px;
+        }
+      }
+      @media (min-width: 1200px) {
+        img {
+          max-width: 20%;
+          max-height: 20%;
+        }
+        .loading-circle {
+          margin-top: 20px;
+        }
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo-container landingload">
+      <img
+        src="https://subject.hkugac.edu.hk/newsletter/images/just%20shooting%20v2.gif"
+        alt="College Insider logo"
+      />
+      <div class="loading-circle"></div>
+    </div>
+  </body>
+  <script>
+    setTimeout(function () {
+      window.location.href = "/home?type=Both&landing=true";
+    }, 500);
+  </script>
+</html>

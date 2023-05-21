@@ -9,8 +9,127 @@
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="https://subject.hkugac.edu.hk/newsletter/images/logo.jpg">
   <title>College Insider</title>
+  <style>
+    /* Add styles for the landingload-overlay */
+    .landingload-overlay {
+      visibility: visible;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      z-index: 9999;
+      animation: slide-up 1s forwards;
+    }
+    /* Add styles for the logo-container when the page was directed from landingload.ejs */
+    .landingload .logo-container {
+      animation: slide-up 1s forwards;
+    }
+    /* Add keyframes for the slide-up animation */
+    @keyframes slide-up {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-100%);
+      }
+    }
+    /* Add keyframes for the slide-down animation */
+    @keyframes slide-down {
+      0% {
+        transform: translateY(-100%);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    body.landingload-overlay {
+        display: flow-root;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .logo-container {
+        padding-top: 37vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .landingload-overlay img {
+        max-width: 90%;
+        max-height: 100%;
+      }
+      .loading-circle {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 2s linear infinite;
+        margin-top: 20px;
+      }
+      @media (min-width: 576px) {
+        .landingload-overlay img {
+          max-width: 50%;
+          max-height: 50%;
+        }
+        .loading-circle {
+          margin-top: 20px;
+        }
+      }
+      @media (min-width: 768px) {
+        .landingload-overlay img {
+          max-width: 40%;
+          max-height: 40%;
+        }
+        .loading-circle {
+          margin-top: 20px;
+        }
+      }
+      @media (min-width: 992px) {
+        .landingload-overlay img {
+          max-width: 30%;
+          max-height: 30%;
+        }
+        .loading-circle {
+          margin-top: 20px;
+        }
+      }
+      @media (min-width: 1200px) {
+        .landingload-overlay img {
+          max-width: 20%;
+          max-height: 20%;
+        }
+        .loading-circle {
+          margin-top: 20px;
+        }
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+  </style>
+
 </head>
 <body>
+  <% if (shouldShowOverlay) { %>
+    <div class="landingload-overlay">
+      <div class="logo-container landingload">
+        <img
+          src="https://subject.hkugac.edu.hk/newsletter/images/just%20shooting%20v2.gif"
+          alt="College Insider logo"
+        />
+        <div class="loading-circle"></div>
+      </div>
+    </div>
+  <% } %>
   <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="/">HKUGAC College Insider <img src="https://subject.hkugac.edu.hk/newsletter/images/logo.jpg" alt="UGAC LOGO" height=30mvw></a>
   </nav>
@@ -42,7 +161,7 @@
           <option value="English" <%= type === 'English' ? 'selected' : '' %>>English</option>
         </select>
       </div>
-      <!-- Remove the "Filter" button -->
+
     </form>
     <div id="article-container">
       <% function getImageUrl(sanitizedHtml) {
@@ -77,8 +196,10 @@
   </div>
   <p><br><br></p>
   <%- include('_footer') %>
+
 </body>
 <script>  
+
 const queryParams = new URLSearchParams(window.location.search);
 
 
@@ -103,14 +224,7 @@ const queryParams = new URLSearchParams(window.location.search);
   let endY = 0;
 
   
-  // Add the type=Both query parameter to the URL if there are no query parameters present
-  if (queryParams.toString() === '') {
-    queryParams.set('type', 'Both');
-    window.history.replaceState({}, '', `${window.location.pathname}?${queryParams.toString()}`);
-    setTimeout(() => {
-      location.reload();
-    }, 1);
-  }
+
   const typeSelect = document.getElementById('type');
 
   // Add an event listener to the select element that listens for the change event
@@ -148,7 +262,7 @@ document.addEventListener('touchmove', function(e) {
     if (distance > 30 && scrollPosition == 0 && !isRefreshing) {
       var currentTime = new Date().getTime();
       var timeSinceLastRefresh = currentTime - lastRefreshTime;
-      var minTimeBetweenRefreshes = 5000;
+      var minTimeBetweenRefreshes = 100;
 
       if (timeSinceLastRefresh > minTimeBetweenRefreshes) {
         isRefreshing = true;
