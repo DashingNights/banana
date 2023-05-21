@@ -17,7 +17,7 @@
     <div class="text-muted mb-2">
       <%= article.createdAt.toLocaleDateString() %> - <%= article.author %> <%= article.hashtags %>
     </div>
-    <a href="/" class="btn btn-secondary">All Articles</a>
+    <a href="/home?type=Both" class="btn btn-secondary">All Articles</a>
     <p></p>
     <div class="limit">
       <%- article.sanitizedHtml %>
