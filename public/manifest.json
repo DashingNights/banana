@@ -1,7 +1,7 @@
 {
   "name": "Banana",
   "short_name": "Insider",
-  "start_url": "http://insider.argus10q.live/",
+  "start_url": "/",
   "display": "standalone",
   "icons": [
     {
