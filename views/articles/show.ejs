@@ -30,7 +30,7 @@
       <p></p>
       <%- article.type %>
       <p></p>
-      <button href="#" id="shareButton" type="button" class="btn btn-secondary">
+      <button href="#" id="shareButton" type="button" class="btn btn-primary">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -47,13 +47,12 @@
           <polyline points="16 6 12 2 8 6"></polyline>
           <line x1="12" y1="2" x2="12" y2="15"></line>
         </svg>
-        Universial Share <br />(unfortunately most features do not work on
-        iPhones)
+        Universial Share
       </button>
       <p></p>
-      <a href="#" onclick="copyLink()" class="btn btn-primary">Copy Link</a>
+      <!-- <a href="#" onclick="copyLink()" class="btn btn-primary">Copy Link</a> -->
       <p></p>
-      <button
+      <!-- <button
         href="#"
         onclick='shareOnTwitter("<%= article.title %>", "<%= article.hashtags %>")'
         class="btn btn-secondary"
@@ -75,7 +74,7 @@
           ></path>
         </svg>
         Share on Twitter
-      </button>
+      </button> -->
       <p></p>
     </div>
     <p><br /></p>
@@ -93,19 +92,19 @@
       window.open(shareUrl, "_blank");
       console.log(tag);
     }
-    function copyLink(title, url) {
-      const link = window.location.href;
-      const dummy = document.createElement("textarea");
-      dummy.value = link;
-      dummy.setAttribute("readonly", "");
-      dummy.style.position = "absolute";
-      dummy.style.left = "-9999px";
-      document.body.appendChild(dummy);
-      dummy.select();
-      document.execCommand("copy");
-      document.body.removeChild(dummy);
-      alert(`Link copied to clipboard: ${link}`);
-    }
+    // function copyLink(title, url) {
+    //   const link = window.location.href;
+    //   const dummy = document.createElement("textarea");
+    //   dummy.value = link;
+    //   dummy.setAttribute("readonly", "");
+    //   dummy.style.position = "absolute";
+    //   dummy.style.left = "-9999px";
+    //   document.body.appendChild(dummy);
+    //   dummy.select();
+    //   document.execCommand("copy");
+    //   document.body.removeChild(dummy);
+    //   alert(`Link copied to clipboard: ${link}`);
+    // }
 
     const shareButton = document.getElementById("shareButton");
     shareButton.addEventListener("click", async () => {
@@ -128,7 +127,7 @@
           dummy.select();
           document.execCommand("copy");
           document.body.removeChild(dummy);
-          alert(`Link copied to clipboard: ${url}`);
+          alert(`Link copied to clipboard :) \n also check if you are using HTTPS.`);
         }
       } catch (err) {
         console.log(err);
