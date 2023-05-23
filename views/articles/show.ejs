@@ -1,78 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-  <link rel="stylesheet" href="/customstyle.css">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="manifest" href="/manifest.json">
-  <link rel="icon" href="/cdn/logo.jpg">
-  <title><%= article.title %></title>
-</head>
-<body>
-  <div class="container">
-    <p></p>
-    <h6 class="mb-1"><%= article.title %></h6>
-    <div class="text-muted mb-2">
-      <%= article.createdAt.toLocaleDateString() %> - <%= article.author %> <%= article.hashtags %>
-    </div>
-    <a href="/home?type=Both" class="btn btn-secondary">All Articles</a>
-    <p></p>
-    <div class="limit">
-      <%- article.sanitizedHtml %>
-    </div>
-    <p></p>
-    <%- article.type %>
-    <p></p>
-    <button href="#" onclick='copyLink()' type="button" class="btn btn-secondary">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-      Share Link </button>
-    <!-- <i class="bi bi-link"></i>
-    <a href="#" onclick='copyLink()' class="btn btn-primary">Copy Link</a> -->
-    
-    <button href="#" onclick='shareOnTwitter("<%= article.title %>", "<%= article.hashtags %>")' class="btn btn-secondary ">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-      Share on Twitter </button>
-    <!-- <a href="#" onclick='shareOnInstagram("<%= article.title %>", "<%= article.imageUrl %>")' class="btn btn-primary">Share on Instagram</a> -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/customstyle.css" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/cdn/logo.jpg" />
+    <title><%= article.title %></title>
+    <link rel="canonical" href="<%= canonicalLink.href %>" />
+  </head>
+  <body>
+    <div class="container">
       <p></p>
-  </div>
-  <p><br></p>
-  <%- include('_footer') %>
-</body>
-<script>
-  function shareOnTwitter(title) {
-    let postText = "<%= article.hashtags %>";
-    var regexp = /#(\S)/g;
-    tag = postText.replace(regexp, '$1');
-    const encodedTitle = encodeURIComponent(title);
-    const encodedUrl = encodeURIComponent(window.location.href);
-    const hashtags = tag;
-    const shareUrl = `https://twitter.com/intent/tweet?text=Check%20out%20this%20article:%20${encodedTitle}&url=${encodedUrl}&hashtags=${hashtags}`;
-    window.open(shareUrl, '_blank');
-    console.log(tag)
-  }
-  function copyLink(title, url) {
-    const link = window.location.href;
-  const dummy = document.createElement('textarea');
-  dummy.value = link;
-  dummy.setAttribute('readonly', '');
-  dummy.style.position = 'absolute';
-  dummy.style.left = '-9999px';
-  document.body.appendChild(dummy);
-  dummy.select();
-  document.execCommand('copy');
-  document.body.removeChild(dummy);
-  alert(`Link copied to clipboard: ${link}`);
-}
-//   function shareOnInstagram(title) {
-//   const encodedTitle = encodeURIComponent(title);
-//   const encodedUrl = encodeURIComponent(window.location.href);
-//   const imageUrl = "https://subject.hkugac.edu.hk/newsletter/images/logo.jpg";
-//   const assetPath = encodeURIComponent(imageUrl);
-//   const shareUrl = `instagram://library?AssetPath=${assetPath}&InstagramCaption=${encodedTitle}%20${encodedUrl}`;
-//   window.location.href = shareUrl;
-// }
-</script>
+      <h6 class="mb-1"><%= article.title %></h6>
+      <div class="text-muted mb-2">
+        <%= article.createdAt.toLocaleDateString() %> - <%= article.author %>
+        <%= article.hashtags %>
+      </div>
+      <a href="/home?type=Both" class="btn btn-secondary">All Articles</a>
+      <p></p>
+      <div class="limit"><%- article.sanitizedHtml %></div>
+      <p></p>
+      <%- article.type %>
+      <p></p>
+      <button href="#" id="shareButton" type="button" class="btn btn-secondary">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-share"
+        >
+          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+          <polyline points="16 6 12 2 8 6"></polyline>
+          <line x1="12" y1="2" x2="12" y2="15"></line>
+        </svg>
+        Universial Share <br />(unfortunately most features do not work on
+        iPhones)
+      </button>
+      <p></p>
+      <a href="#" onclick="copyLink()" class="btn btn-primary">Copy Link</a>
+      <p></p>
+      <button
+        href="#"
+        onclick='shareOnTwitter("<%= article.title %>", "<%= article.hashtags %>")'
+        class="btn btn-secondary"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-twitter"
+        >
+          <path
+            d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
+          ></path>
+        </svg>
+        Share on Twitter
+      </button>
+      <p></p>
+    </div>
+    <p><br /></p>
+    <%- include('_footer') %>
+  </body>
+  <script>
+    function shareOnTwitter(title) {
+      let postText = "<%= article.hashtags %>";
+      var regexp = /#(\S)/g;
+      tag = postText.replace(regexp, "$1");
+      const encodedTitle = encodeURIComponent(title);
+      const encodedUrl = encodeURIComponent(window.location.href);
+      const hashtags = tag;
+      const shareUrl = `https://twitter.com/intent/tweet?text=Check%20out%20this%20article:%20${encodedTitle}&url=${encodedUrl}&hashtags=${hashtags}`;
+      window.open(shareUrl, "_blank");
+      console.log(tag);
+    }
+    function copyLink(title, url) {
+      const link = window.location.href;
+      const dummy = document.createElement("textarea");
+      dummy.value = link;
+      dummy.setAttribute("readonly", "");
+      dummy.style.position = "absolute";
+      dummy.style.left = "-9999px";
+      document.body.appendChild(dummy);
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+      alert(`Link copied to clipboard: ${link}`);
+    }
+    async function onShare() {
+      const title = document.title;
+      const canonicalLink = document.querySelector("link[rel=canonical]");
+      if (!canonicalLink) {
+        return;
+      }
+      const url = canonicalLink.href;
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title,
+            url,
+          });
+        } else {
+          const dummy = document.createElement("textarea");
+          dummy.value = url;
+          dummy.setAttribute("readonly", "");
+          dummy.style.position = "absolute";
+          dummy.style.left = "-9999px";
+          document.body.appendChild(dummy);
+          dummy.select();
+          document.execCommand("copy");
+          document.body.removeChild(dummy);
+          alert(`Link copied to clipboard: ${url}`);
+        }
+      } catch (err) {
+        alert(`Oops, something broke. Please report this bug!`);
+      }
+    }
 
+    const shareButton = document.getElementById("shareButton");
+    shareButton.addEventListener("click", onShare);
+  </script>
 </html>
