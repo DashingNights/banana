@@ -140,8 +140,9 @@ app.get("/login", function (req, res) {
 app.get("/portal", function (req, res) {
   res.render("articles/portal");
 });
-app.get("/cdn/loadingdots", function (req, res) {
-  res.sendFile(__dirname + "/public/loadingdots.gif");
+app.get('/cdn/:filename', function(req, res) {
+  const filename = req.params.filename;
+  res.sendFile(__dirname + '/public/' + filename);
 });
 
 app.post("/login", function (req, res) {
