@@ -127,23 +127,29 @@
           dummy.select();
           document.execCommand("copy");
           document.body.removeChild(dummy);
-          alert(`Link copied to clipboard :) \n also check if you are using HTTPS.`);
+          alert(
+            `Link copied to clipboard :) \n also check if you are using HTTPS.`
+          );
         }
       } catch (err) {
-        console.log(err);
-        alert(`Oops, something broke. Please report this bug!`);
-        const url = "/bugreport";
-        const data = {
-          title: "error sharing",
-          issue: `${err}`,
-        };
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
+        if (err.name === "AbortError") {
+          return;
+        } else {
+          console.log(err);
+          alert(`Oops, something broke. Please report this bug!`);
+          const url = "/bugreport";
+          const data = {
+            title: "error sharing",
+            issue: `${err}`,
+          };
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+        }
       }
     });
   </script>
