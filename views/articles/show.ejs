@@ -107,65 +107,29 @@
       alert(`Link copied to clipboard: ${link}`);
     }
 
-    // async function onShare() {
-    //   const title = document.title;
-    //   const canonicalLink = document.querySelector("link[rel=canonical]");
-    //   if (!canonicalLink) {
-    //     return;
-    //   }
-    //   const url = canonicalLink.href;
-    //   const text = `<%= article.description %>`;
-    //   try {
-    //     if (navigator.share) {
-    //       await navigator.share({
-    //         title,
-    //         text,
-    //         url,
-    //       });
-    //     } else {
-    //       const dummy = document.createElement("textarea");
-    //       dummy.value = url;
-    //       dummy.setAttribute("readonly", "");
-    //       dummy.style.position = "absolute";
-    //       dummy.style.left = "-9999px";
-    //       document.body.appendChild(dummy);
-    //       dummy.select();
-    //       document.execCommand("copy");
-    //       document.body.removeChild(dummy);
-    //       alert(`Link copied to clipboard: ${url}`);
-    //     }
-    //   } catch (err) {}
-    // }
-
     const shareButton = document.getElementById("shareButton");
     shareButton.addEventListener("click", async () => {
       try {
-        const shareData = {
-          title: "<%= article.title %>",
-          text: "<%= article.description %>",
-          url: window.location.href,
-        };
-        await navigator.share(shareData);
-        // if (navigator.share) {
-        //   const shareData = {
-        //     title: "<%= article.title %>",
-        //     text: "<%= article.description %>",
-        //     url: window.location.href,
-        //   };
-        //   await navigator.share(shareData);
-        // } else {
-        //   const url = window.location.href;
-        //   const dummy = document.createElement("textarea");
-        //   dummy.value = url;
-        //   dummy.setAttribute("readonly", "");
-        //   dummy.style.position = "absolute";
-        //   dummy.style.left = "-9999px";
-        //   document.body.appendChild(dummy);
-        //   dummy.select();
-        //   document.execCommand("copy");
-        //   document.body.removeChild(dummy);
-        //   alert(`Link copied to clipboard: ${url}`);
-        // }
+        if (navigator.share) {
+          const shareData = {
+            title: "<%= article.title %>",
+            text: "<%= article.description %>",
+            url: window.location.href,
+          };
+          await navigator.share(shareData);
+        } else {
+          const url = window.location.href;
+          const dummy = document.createElement("textarea");
+          dummy.value = url;
+          dummy.setAttribute("readonly", "");
+          dummy.style.position = "absolute";
+          dummy.style.left = "-9999px";
+          document.body.appendChild(dummy);
+          dummy.select();
+          document.execCommand("copy");
+          document.body.removeChild(dummy);
+          alert(`Link copied to clipboard: ${url}`);
+        }
       } catch (err) {
         console.log(err);
         alert(`Oops, something broke. Please report this bug!`);
