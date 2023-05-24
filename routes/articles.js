@@ -24,11 +24,9 @@ router.get("/:slug", async (req, res) => {
   article.title = article.title.replace(/\\u[\dA-F]{4}/gi, function (match) {
     return String.fromCharCode(parseInt(match.replace(/\\u/g, ""), 16));
   });
-  const canonicalLink = {
-    rel: "canonical",
-    href: `https://insider.argus10q.live/articles/${article.slug}`
-  };
-  res.render("articles/show", { article: article, canonicalLink: canonicalLink });
+  res.render("articles/show", {
+    article: article,
+  });
 });
 
 router.post("/", requireAuth, authMiddleware, async (req, res, next) => {
