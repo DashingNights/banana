@@ -76,9 +76,13 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/home", async (req, res) => {
-  const shouldShowOverlay = req.query.landing ==='true'
+  const shouldShowOverlay = req.query.landing === "true";
   const articles = await Article.find().sort({ createdAt: "desc" });
-  res.render("articles/index", { articles: articles, req: req, shouldShowOverlay });
+  res.render("articles/index", {
+    articles: articles,
+    req: req,
+    shouldShowOverlay,
+  });
   const userIP =
     req.headers["cf-connecting-ip"] ||
     req.headers["x-real-ip"] ||
@@ -140,9 +144,9 @@ app.get("/login", function (req, res) {
 app.get("/portal", function (req, res) {
   res.render("articles/portal");
 });
-app.get('/cdn/:filename', function(req, res) {
+app.get("/cdn/:filename", function (req, res) {
   const filename = req.params.filename;
-  res.sendFile(__dirname + '/public/' + filename);
+  res.sendFile(__dirname + "/public/" + filename);
 });
 
 app.post("/login", function (req, res) {

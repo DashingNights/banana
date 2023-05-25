@@ -11,7 +11,7 @@
 body {
   zoom: 75%;
   background-color: #fffdf8;
-  padding-top: 65px; /* Adjust this value to match the height of your header bar */
+  padding-top: 65px;
 }
 .footer {
   position: fixed;
@@ -25,6 +25,9 @@ body {
   justify-content: space-between;
   padding: 10px;
   box-sizing: border-box;
+}
+.footer.dark {
+  background-color: #242424;
 }
 
 .footer a {
@@ -80,4 +83,34 @@ body {
 }
 html {
   scroll-behavior: smooth;
+}
+.navbar-hidden {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+.headerimg {
+  padding-top: 1vh;
+  padding-bottom: 0.4vh;
+}
+.navbarpad {
+  padding-top: 3.2vh;
+}
+.article-card-img {
+  height: 40vh;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 3.4vh;
+  border-radius: 10px;
+}
+.card-container {
+  width: 100%;
+}
+.author-bar {
+  display: flex;
+  padding-top: 1vh;
+  padding-bottom: 3vh;
+}
+body.dark {
+  background-color: #222;
 }
