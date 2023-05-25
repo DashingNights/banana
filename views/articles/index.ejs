@@ -184,7 +184,9 @@
                 <%= article.author %>
               </div>
             </div>
-            <img src="<%= getImageUrl(article.sanitizedHtml) %>" class="card-img-top article-card-img" alt="...">
+            <% if (getImageUrl(article.sanitizedHtml)) { %>
+              <img src="<%= getImageUrl(article.sanitizedHtml) %>" class="card-img-top article-card-img" alt="...">
+            <% } %>
             <!-- TEMPPASTE UP LINE 
             style="background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.96),rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.7)), url('<%= getImageUrl(article.sanitizedHtml) %>'); background-size: cover; background-repeat: no-repeat; background-size: 100% fit;" -->
             <h6 class="card-title"><%= decodeUnicode(article.title) %></h6>

@@ -48,6 +48,10 @@ body {
   right: 0;
   z-index: 999;
 }
+.navbar img {
+  width: auto;
+  max-height: 65px;
+}
 #pull-to-refresh {
   padding-top: 65px;
   position: absolute;
