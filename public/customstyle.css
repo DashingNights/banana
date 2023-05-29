@@ -118,3 +118,26 @@ html {
 body.dark {
   background-color: #222;
 }
+.show-container {
+  padding-left: 5vw;
+  padding-right: 5vw;
+  width: 100%;
+}
+.show-container img {
+/* align to center, scale down size to 40% */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  height: auto;
+}
+.search-container {
+  padding-left: 5vw;
+  padding-right: 5vw;
+  width: 100%;
+}
+.filter-container {
+  padding-left: 5vw;
+  padding-right: 5vw;
+  width: 100%;
+}

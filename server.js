@@ -213,3 +213,19 @@ app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).send("Internal Server Error");
 });
+app.use(express.json());
+const webpush = require("web-push");
+webpush.setVapidDetails(
+  `mailto:${config.Vapi.mailto}`,
+  config.Vapi.public,
+  config.Vapi.private
+);
+let subscriptionData = null;
+app.get("/send-notification", (req, res) => {
+  webpush.sendNotification(subscriptionData, "Hello World");
+  res.sendStatus(200);
+});
+app.post("/save-subscription", async (req, res) => {
+  subscriptionData = req.body;
+  res.sendStatus(200);
+});
