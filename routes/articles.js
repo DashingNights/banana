@@ -24,6 +24,12 @@ router.get("/:slug", async (req, res) => {
   article.title = article.title.replace(/\\u[\dA-F]{4}/gi, function (match) {
     return String.fromCharCode(parseInt(match.replace(/\\u/g, ""), 16));
   });
+  // Article.findOneAndUpdate(
+  //   { slug: req.params.slug },
+  //   { $inc: { viewCount: 1 } },
+  //   { new: true }
+  // );
+  // console.log(`View count for ${article.title} was incremented`);
   res.render("articles/show", {
     article: article,
   });
@@ -65,6 +71,19 @@ router.delete("/:id", requireAuth, authMiddleware, async (req, res) => {
   await Article.findByIdAndDelete(req.params.id);
   res.redirect("/");
 });
+
+function saveViewCount() {
+  return async (req, res) => {
+    let article = req.article;
+    article.viewCount = article.viewCount + 1;
+    try {
+      article = await article.save();
+      console.log(`View count for ${article.title} was incremented`);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+}
 
 function saveArticleAndRedirect(path) {
   return async (req, res) => {

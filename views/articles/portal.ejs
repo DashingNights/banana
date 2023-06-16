@@ -1,38 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/cdn/bootstrap.min.css">  <link rel="stylesheet" href="/customstyle.css">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="manifest" href="/manifest.json">
-  <link rel="icon" href="/cdn/logo.jpg">
-  <title>College Insider Portal</title>
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="/home?type=Both">HKUGAC College Insider <img src="/cdn/logo.jpg" alt="UGAC LOGO" height=30mvw></a>
-  </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/cdn/bootstrap.min.css" />
+    <link rel="stylesheet" href="/customstyle.css" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/cdn/logo.jpg" />
+    <title>College Insider Portal</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="/home?type=Both"
+        >HKUGAC College Insider
+        <img src="/cdn/logo.jpg" alt="UGAC LOGO" height="30mvw"
+      /></a>
+    </nav>
 
-  <div class="container" style="padding-top: 20px">
-<!-- list of different links -->
-    <p class="h2">link Portal</p>
-    <div>
+    <div class="container" style="padding-top: 20px">
+      <!-- list of different links -->
+      <p class="h2">link Portal</p>
+      <div>
         <ul class="list-group list-group-flush">
-            <li></li>
-            <li><a href="https://www.instagram.com/hkugac_college_insider/"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>Instagram</a></li>
-            <li></li>
-            <li><a href="https://docs.google.com/document/d/1coA5enQ9m7-oK7atZHX56L0BCbF-2RrkhGtd5hHvt_Q/edit?usp=sharing"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Daily Bulletin</a></li>
+          <li></li>
+          <li>
+            <a href="https://www.instagram.com/hkugac_college_insider/"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="60"
+                height="60"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-instagram"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path
+                  d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                ></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg
+              >Instagram</a
+            >
+          </li>
+          <li></li>
+          <li>
+            <a
+              href="https://docs.google.com/document/d/1coA5enQ9m7-oK7atZHX56L0BCbF-2RrkhGtd5hHvt_Q/edit?usp=sharing"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="60"
+                height="60"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-calendar"
+              >
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line></svg
+              >Daily Bulletin</a
+            >
+          </li>
         </ul>
+      </div>
     </div>
-  </div>
-  <p><br><br></p>
-  <%- include('_footer') %>
-</body>
-<script>
-var startY, endY;
-var lastRefreshTime = 0;
-var isRefreshing = false;
-
-</script>
+    <p><br /><br /></p>
+    <%- include('_footer') %>
+  </body>
 </html>
