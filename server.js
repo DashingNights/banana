@@ -91,6 +91,15 @@ app.get("/home", async (req, res) => {
   console.log(userIP);
   logger.logEvent("User visited the homepage", userIP);
 });
+app.get("/beta", async (req, res) => {
+  const shouldShowOverlay = req.query.landing === "true";
+  const articles = await Article.find().sort({ createdAt: "desc" });
+  res.render("beta/home", {
+    articles: articles,
+    req: req,
+    shouldShowOverlay,
+  });
+});
 
 app.get("/adminview", requireAuth, authMiddleware, async function (req, res) {
   const userId = req.userId;
@@ -149,6 +158,7 @@ app.get("/cdn/:filename", function (req, res) {
   const filename = req.params.filename;
   res.sendFile(__dirname + "/public/" + filename);
 });
+
 
 app.post("/login", function (req, res) {
   logger.logEvent(
@@ -210,7 +220,10 @@ app.get("*", function (req, res) {
 });
 
 app.use(function (err, req, res, next) {
+  if (config.Discord.enabled === true) {
   logger.bugReport("Internal Server Error", err.stack);
-  console.error(err.stack);
+  } else {
+    console.error(err.stack);
   res.status(500).send("Internal Server Error");
+  }
 });

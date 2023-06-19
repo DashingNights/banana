@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/cdn/bootstrap.min.css" />
+    <link rel="stylesheet" href="/customstyle.css" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/cdn/logo.jpg" />
+    <title>College Insider</title>
+    <style>
+      /* Add styles for the landingload-overlay */
+      .landingload-overlay {
+        background-color: #ffffff;
+        visibility: visible;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        z-index: 9999;
+        animation: slide-up 1s forwards;
+      }
+      /* Add styles for the logo-container when the page was directed from landingload.ejs */
+      .landingload .logo-container {
+        animation: slide-up 1s forwards;
+      }
+      /* Add keyframes for the slide-up animation */
+      @keyframes slide-up {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-100%);
+        }
+      }
+      /* Add keyframes for the slide-down animation */
+      @keyframes slide-down {
+        0% {
+          transform: translateY(-100%);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+      body.landingload-overlay {
+        display: flow-root;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .logo-container {
+        padding-top: 36vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .landingload-overlay img {
+        max-width: 90%;
+        max-height: 100%;
+      }
+      .loading-circle {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 2s linear infinite;
+        margin-top: 20px;
+      }
+      @media (min-width: 576px) {
+        .landingload-overlay img {
+          max-width: 50%;
+          max-height: 50%;
+        }
+        .loading-circle {
+          margin-top: 20px;
+        }
+      }
+      @media (min-width: 768px) {
+        .landingload-overlay img {
+          max-width: 40%;
+          max-height: 40%;
+        }
+        .loading-circle {
+          margin-top: 20px;
+        }
+      }
+      @media (min-width: 992px) {
+        .landingload-overlay img {
+          max-width: 30%;
+          max-height: 30%;
+        }
+        .loading-circle {
+          margin-top: 20px;
+        }
+      }
+      @media (min-width: 1200px) {
+        .landingload-overlay img {
+          max-width: 20%;
+          max-height: 20%;
+        }
+        .loading-circle {
+          margin-top: 20px;
+        }
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('components/_navbar') %>
+    <div id="pull-to-refresh" class="transition">
+      <div class="icon">
+        <i class="fa fa-arrow-down"></i>
+      </div>
+      <div class="message">
+        Pull to refresh
+        <img src="/cdn/loadingdots.gif" alt="loadingImage" />
+      </div>
+    </div>
+    <%- include('components/home/_HomeScrollView') %>
+    <p><br /><br /></p>
+    <%- include('components/_footer') %>
+  </body>
+  <script>
+    const queryParams = new URLSearchParams(window.location.search);
+
+    function getImageUrl(sanitizedHtml) {
+      const regex = /<img.*?src="(.*?)"/;
+      const match = regex.exec(sanitizedHtml);
+      if (match) {
+        return match[1];
+      }
+      return "";
+    }
+
+    function decodeUnicode(str) {
+      return str.replace(/\\u[\dA-F]{4}/gi, function (match) {
+        return String.fromCharCode(parseInt(match.replace(/\\u/g, ""), 16));
+      });
+    }
+    const minTimeBetweenRefreshes = 5000;
+    let lastRefreshTime = 0;
+    let isRefreshing = false;
+    let startY = 0;
+    let endY = 0;
+
+    const typeSelect = document.getElementById("type");
+
+    // Add an event listener to the select element that listens for the change event
+    typeSelect.addEventListener("change", () => {
+      queryParams.set("type", typeSelect.value);
+      queryParams.set("landing", "false"); // Set the landing parameter to false
+      window.history.replaceState({}, "", `/home?${queryParams.toString()}`);
+      location.reload();
+    });
+
+    function refresh() {
+      var refreshElement = document.getElementById("pull-to-refresh");
+      refreshElement.classList.add("refreshing");
+      setTimeout(function () {
+        queryParams.set("landing", "false"); // Set the landing parameter to false
+        window.history.replaceState({}, "", `/home?${queryParams.toString()}`); // Reload the page to the /home path
+        location.reload();
+        window.scrollTo(0, 0);
+        lastRefreshTime = new Date().getTime();
+        isRefreshing = false;
+        refreshElement.classList.remove("refreshing");
+      }, 1000);
+    }
+
+    document.addEventListener("touchstart", function (e) {
+      startY = e.touches[0].clientY;
+    });
+
+    document.addEventListener("touchmove", function (e) {
+      endY = e.touches[0].clientY;
+
+      if (endY > startY) {
+        var distance = endY - startY;
+        var scrollPosition = window.pageYOffset;
+
+        if (distance > 35 && scrollPosition == 0 && !isRefreshing) {
+          var currentTime = new Date().getTime();
+          var timeSinceLastRefresh = currentTime - lastRefreshTime;
+          var minTimeBetweenRefreshes = 100;
+
+          if (timeSinceLastRefresh > minTimeBetweenRefreshes) {
+            isRefreshing = true;
+            refresh();
+          }
+        }
+      }
+    });
+    const searchInput = document.getElementById("search");
+    const articles = document.querySelectorAll(".card");
+
+    searchInput.addEventListener("input", () => {
+      const searchQuery = searchInput.value.toLowerCase();
+
+      articles.forEach((article) => {
+        const title = article
+          .querySelector(".card-title")
+          .textContent.toLowerCase();
+        const content = article
+          .querySelector(".card-text")
+          .textContent.toLowerCase();
+        const hashtags = article
+          .querySelector(".text-muted")
+          .textContent.toLowerCase();
+
+        if (
+          title.includes(searchQuery) ||
+          content.includes(searchQuery) ||
+          hashtags.includes(searchQuery)
+        ) {
+          article.style.display = "block";
+        } else {
+          article.style.display = "none";
+        }
+      });
+    });
+    const navbar = document.querySelector(".navbar");
+
+    let prevScrollPos = window.pageYOffset;
+
+    window.addEventListener("scroll", () => {
+      const currentScrollPos = window.pageYOffset;
+      if (prevScrollPos > currentScrollPos) {
+        navbar.classList.remove("navbar-hidden");
+      } else {
+        if (currentScrollPos > (50 * window.innerHeight) / 100) {
+          navbar.classList.add("navbar-hidden");
+        }
+      }
+      prevScrollPos = currentScrollPos;
+    });
+    const themeToggle = document.getElementById("theme-toggle");
+    const body = document.body;
+    const cards = document.getElementsByClassName("card-body");
+    const footers = document.getElementsByClassName("footer");
+
+    themeToggle.addEventListener("click", () => {
+      for (let i = 0; i < cards.length; i++) {
+        cards[i].classList.toggle("dark");
+      }
+      body.classList.toggle("dark");
+      for (let i = 0; i < footers.length; i++) {
+        footers[i].classList.toggle("dark");
+      }
+    });
+  </script>
+</html>
