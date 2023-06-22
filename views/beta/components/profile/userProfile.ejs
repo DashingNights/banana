@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Profile Page</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      img.upfp {
+        object-fit: cover;
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
+      }
+      .container {
+        margin-top: 20%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="image-cropper">
+            <img
+              src="/cdn/wonie.jpg"
+              alt="Profile Picture"
+              class="img-fluid upfp"
+            />
+          </div>
+        </div>
+        <div class="col-md-8">
+          <h1>Oh Hae-Won (Hangul: 오해원)</h1>
+          <p>I AM HAEWON I AM VERY FUNNY</p>
+          <p>Author Rating: <em>SS+⭐</em>999999/10</p>
+        </div>
+      </div>
+      <hr />
+      <h2>Articles</h2>
+      <ul>
+        <p>
+          <% articles.forEach(function(article) { %>
+          <li>
+            <a href="/articles/<%= article.slug %>"><%= article.title %></a>
+          </li>
+          <% }); %>
+        </p>
+      </ul>
+    </div>
+  </body>
+</html>

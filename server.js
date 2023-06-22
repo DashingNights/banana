@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Article = require("./models/article");
 const config = require("./config");
 const articleRouter = require("./routes/articles");
+const profileRouter = require("./routes/profiles");
 const methodOverride = require("method-override");
 const app = express();
 const bodyParser = require("body-parser");
@@ -100,6 +101,7 @@ app.get("/beta", async (req, res) => {
     shouldShowOverlay,
   });
 });
+app.use("/profiles", profileRouter);
 
 app.get("/adminview", requireAuth, authMiddleware, async function (req, res) {
   const userId = req.userId;
