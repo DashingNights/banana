@@ -16,8 +16,11 @@
         height: 100px;
         width: 100px;
       }
+      body{
+        padding-bottom: 30px;
+      }
       .container {
-        margin-top: 20%;
+        margin-top: 30px
       }
     </style>
   </head>
@@ -35,6 +38,7 @@
         </div>
         <div class="col-md-8">
           <h6>!!! Sample Profile page !!!</h6>
+          <h6>Its barebones for now</h6>
           <h1>Oh Hae-Won</h1>
           <h2>(Hangul: 오해원)</h2>
           <h6>About me: </h6>
@@ -50,6 +54,7 @@
           <% articles.forEach(function(article) { %>
           <li>
             <a href="/articles/<%= article.slug %>"><%= article.title %></a>
+            
           </li>
           <% }); %>
         </p>
