@@ -119,6 +119,17 @@
     </style>
   </head>
   <body>
+    <% if (shouldShowOverlay) { %>
+      <div class="landingload-overlay">
+        <div class="logo-container landingload">
+          <img
+            src="/cdn/headerimage.gif"
+            alt="College Insider logo"
+          />
+          <div class="loading-circle"></div>
+        </div>
+      </div>
+    <% } %>
     <%- include('components/_navbar') %>
     <div id="pull-to-refresh" class="transition">
       <div class="icon">
@@ -245,20 +256,6 @@
         }
       }
       prevScrollPos = currentScrollPos;
-    });
-    const themeToggle = document.getElementById("theme-toggle");
-    const body = document.body;
-    const cards = document.getElementsByClassName("card-body");
-    const footers = document.getElementsByClassName("footer");
-
-    themeToggle.addEventListener("click", () => {
-      for (let i = 0; i < cards.length; i++) {
-        cards[i].classList.toggle("dark");
-      }
-      body.classList.toggle("dark");
-      for (let i = 0; i < footers.length; i++) {
-        footers[i].classList.toggle("dark");
-      }
     });
   </script>
 </html>

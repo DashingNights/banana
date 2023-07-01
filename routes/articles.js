@@ -7,7 +7,7 @@ const { DiscordLogger } = require("../discordlogger/webhook");
 const logger = new DiscordLogger();
 
 router.get("/new", requireAuth, authMiddleware, (req, res) => {
-  res.render("articles/new", { article: new Article() });
+  res.render("new", { article: new Article() });
 });
 
 router.get("/edit/:id", requireAuth, authMiddleware, async (req, res) => {
@@ -15,7 +15,7 @@ router.get("/edit/:id", requireAuth, authMiddleware, async (req, res) => {
   article.title = article.title.replace(/\\u[\dA-F]{4}/gi, function (match) {
     return String.fromCharCode(parseInt(match.replace(/\\u/g, ""), 16));
   });
-  res.render("articles/edit", { article: article });
+  res.render("edit", { article: article });
 });
 
 router.get("/:slug", async (req, res) => {
@@ -30,7 +30,7 @@ router.get("/:slug", async (req, res) => {
   //   { new: true }
   // );
   // console.log(`View count for ${article.title} was incremented`);
-  res.render("articles/show", {
+  res.render("show", {
     article: article,
   });
 });
@@ -52,7 +52,7 @@ router.post("/", requireAuth, authMiddleware, async (req, res, next) => {
     res.redirect(`/articles/${newArticle.slug}`);
   } catch (err) {
     console.error(err);
-    res.render("articles/new", { article: article });
+    res.render("new", { article: article });
   }
 });
 

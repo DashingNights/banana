@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
       });
       return article;
     });
-    res.render("beta/components/profile/userProfile", {
+    res.render("components/profile/userProfile", {
       articles: updatedArticles,
       req: req,
     });

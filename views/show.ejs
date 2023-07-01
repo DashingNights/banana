@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/customstyle.css" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/cdn/logo.jpg" />
+    <title><%= article.title %></title>
+  </head>
+  <body>
+    <div class="show-container">
+      <p></p>
+      <h6 class="mb-1"><%= article.title %></h6>
+      <div class="text-muted mb-2">
+        <%= article.createdAt.toLocaleDateString() %> - <%= article.author %>
+        <%= article.hashtags %>
+      </div>
+      <a href="/home?type=Both" class="btn btn-secondary">All Articles</a>
+      <p></p>
+      <div class="limit"><%- article.sanitizedHtml %></div>
+      <p></p>
+      <%- article.type %>
+      <p></p>
+      <button href="#" id="shareButton" type="button" class="btn btn-primary">
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-share"
+        >
+        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+        <polyline points="16 6 12 2 8 6"></polyline>
+        <line x1="12" y1="2" x2="12" y2="15"></line>
+        </svg>
+        Share This
+      </button>
+      <p></p>
+      <p></p>
+      <p></p>
+    </div>
+    <p><br/></p>
+    <%- include('components/_footer') %>
+  </body>
+  <scripts src="/cdn/scripts/showScript.js">
+  </scripts>
+</html>

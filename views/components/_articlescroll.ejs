@@ -1,11 +1,10 @@
 <div id="article-container">
-  <% function getImageUrl(sanitizedHtml) { const regex =
-  /<img.*?src="(.*?)"/; const match = regex.exec(sanitizedHtml); if
-  (match) { return match[1]; } return ''; } %> <% function
-  decodeUnicode(str) { return str.replace(/\\u([a-fA-F0-9]{4})/g, function
-  (match, p1) { return String.fromCharCode(parseInt(p1, 16)); }); } %> <%
-  articles.forEach(article => { if (req.query.type === 'Both' ||
-  article.type === req.query.type) {%>
+  <% function getImageUrl(sanitizedHtml) { const regex = /<img.*?src="(.*?)"/;
+  const match = regex.exec(sanitizedHtml); if (match) { return match[1]; }
+  return ''; } %> <% function decodeUnicode(str) { return
+  str.replace(/\\u([a-fA-F0-9]{4})/g, function (match, p1) { return
+  String.fromCharCode(parseInt(p1, 16)); }); } %> <% articles.forEach(article =>
+  { if (req.query.type === 'Both' || article.type === req.query.type) {%>
   <div class="card mt-0">
     <div class="card-body">
       <div class="author-bar">

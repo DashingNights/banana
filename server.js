@@ -74,13 +74,13 @@ app.use(function (req, res, next) {
 });
 
 app.get("/", async (req, res) => {
-  res.render("articles/landingload");
+  res.render("landingload");
 });
 
 app.get("/home", async (req, res) => {
   const shouldShowOverlay = req.query.landing === "true";
   const articles = await Article.find().sort({ createdAt: "desc" });
-  res.render("articles/index", {
+  res.render("home", {
     articles: articles,
     req: req,
     shouldShowOverlay,
@@ -92,21 +92,13 @@ app.get("/home", async (req, res) => {
   console.log(userIP);
   logger.logEvent("User visited the homepage", userIP);
 });
-app.get("/beta", async (req, res) => {
-  const shouldShowOverlay = req.query.landing === "true";
-  const articles = await Article.find().sort({ createdAt: "desc" });
-  res.render("beta/home", {
-    articles: articles,
-    req: req,
-    shouldShowOverlay,
-  });
-});
+
 app.use("/profiles", profileRouter);
 
 app.get("/adminview", requireAuth, authMiddleware, async function (req, res) {
   const userId = req.userId;
   const articles = await Article.find().sort({ createdAt: "desc" });
-  res.render("admin/adminview", {
+  res.render("components/admin/adminview", {
     id: userId,
     articles: articles,
     isAdmin: req.isAdmin,
@@ -120,7 +112,7 @@ app.get("/adminview", requireAuth, authMiddleware, async function (req, res) {
   );
 });
 app.get("/bugreport", async (req, res) => {
-  res.render("articles/bugreport");
+  res.render("bugreport");
   logger.logEvent(
     "User visited the bug report page",
     req.headers["cf-connecting-ip"] ||
@@ -145,7 +137,7 @@ app.get("/customstyle.css", async (req, res) => {
 });
 
 app.get("/login", function (req, res) {
-  res.render("admin/login");
+  res.render("login");
   logger.logEvent(
     "User visited the login page",
     req.headers["cf-connecting-ip"] ||
@@ -159,6 +151,14 @@ app.get("/portal", function (req, res) {
 app.get("/cdn/:filename", function (req, res) {
   const filename = req.params.filename;
   res.sendFile(__dirname + "/public/" + filename);
+});
+app.get("/cdn/scripts/:filename", function (req, res) {
+  const filename = req.params.filename;
+  res.sendFile(__dirname + "/public/scripts/" + filename);
+});
+app.get("/cdn/svg/:filename", function (req, res) {
+  const filename = req.params.filename;
+  res.sendFile(__dirname + "/public/svg/" + filename);
 });
 
 

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Profile Page</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/cdn/bootstrap.min.css">
+    <link rel="stylesheet" href="/customstyle.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/cdn/logo.jpg">
+    <title>Haewonnie's Profile!!!</title>
     <style>
       img.upfp {
         object-fit: cover;
@@ -31,13 +34,17 @@
           </div>
         </div>
         <div class="col-md-8">
-          <h1>Oh Hae-Won (Hangul: 오해원)</h1>
+          <h6>!!! Sample Profile page !!!</h6>
+          <h1>Oh Hae-Won</h1>
+          <h2>(Hangul: 오해원)</h2>
+          <h6>About me: </h6>
           <p>I AM HAEWON I AM VERY FUNNY</p>
+          <p>(KPOP Idol from NMIXX if you are confused as to who she is)</p>
           <p>Author Rating: <em>SS+⭐</em>999999/10</p>
         </div>
       </div>
       <hr />
-      <h2>Articles</h2>
+      <h2>My Articles! 😍</h2>
       <ul>
         <p>
           <% articles.forEach(function(article) { %>
@@ -48,5 +55,6 @@
         </p>
       </ul>
     </div>
+    <%- include('../_footer') %>
   </body>
 </html>
