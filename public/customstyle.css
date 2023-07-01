@@ -141,3 +141,6 @@ body.dark {
   padding-right: 5vw;
   width: 100%;
 }
+.footer a.active svg {
+  background-color: #8a8a8a;
+}

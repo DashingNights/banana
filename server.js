@@ -137,7 +137,9 @@ app.get("/customstyle.css", async (req, res) => {
 });
 
 app.get("/login", function (req, res) {
-  res.render("login");
+  res.render("login", {
+    req: req,
+  });
   logger.logEvent(
     "User visited the login page",
     req.headers["cf-connecting-ip"] ||
@@ -146,7 +148,9 @@ app.get("/login", function (req, res) {
   );
 });
 app.get("/portal", function (req, res) {
-  res.render("articles/portal");
+  res.render("portal", {
+    req: req,
+  });
 });
 app.get("/cdn/:filename", function (req, res) {
   const filename = req.params.filename;

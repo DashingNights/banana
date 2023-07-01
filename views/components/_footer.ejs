@@ -1,5 +1,5 @@
 <div class="footer">
-  <a href="/home?type=Both"
+  <a href="/home?type=Both" class="<%= req.path === '/home' ? 'active' : '' %>"
     ><svg
       xmlns="http://www.w3.org/2000/svg"
       width="30"
@@ -16,7 +16,7 @@
       <polyline points="9 22 9 12 15 12 15 22"></polyline></svg
   ></a>
   <!-- <a href="/advancedsearch"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></a> -->
-  <a href="/login"
+  <a href="/login" class="<%= req.path === '/login' ? 'active' : '' %>"
     ><svg
       xmlns="http://www.w3.org/2000/svg"
       width="30"
@@ -33,7 +33,7 @@
       <polyline points="10 17 15 12 10 7"></polyline>
       <line x1="15" y1="12" x2="3" y2="12"></line></svg
   ></a>
-  <a href="/portal"
+  <a href="/portal" class="<%= req.path === '/portal' ? 'active' : '' %>"
     ><svg
       xmlns="http://www.w3.org/2000/svg"
       width="30"
@@ -51,7 +51,7 @@
         d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
       ></path></svg
   ></a>
-  <a href="/profiles"
+  <a href="/profiles" class="<%= req.path === '/profiles' ? 'active' : '' %>"
     ><svg
       width="30"
       height="30"
