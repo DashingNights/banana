@@ -132,9 +132,6 @@ app.post("/bugreport", async (req, res) => {
 app.get("/manifest.json", async (req, res) => {
   res.sendFile(__dirname + "/public/manifest.json");
 });
-app.get("/customstyle.css", async (req, res) => {
-  res.sendFile(__dirname + "/public/customstyle.css");
-});
 
 app.get("/login", function (req, res) {
   res.render("login", {
@@ -152,6 +149,7 @@ app.get("/portal", function (req, res) {
     req: req,
   });
 });
+// hardcode for security reasons
 app.get("/cdn/:filename", function (req, res) {
   const filename = req.params.filename;
   res.sendFile(__dirname + "/public/" + filename);
@@ -163,6 +161,10 @@ app.get("/cdn/scripts/:filename", function (req, res) {
 app.get("/cdn/svg/:filename", function (req, res) {
   const filename = req.params.filename;
   res.sendFile(__dirname + "/public/svg/" + filename);
+});
+app.get("/cdn/css/:filename", function (req, res) {
+  const filename = req.params.filename;
+  res.sendFile(__dirname + "/public/css/" + filename);
 });
 
 
