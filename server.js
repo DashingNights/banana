@@ -112,7 +112,9 @@ app.get("/adminview", requireAuth, authMiddleware, async function (req, res) {
   );
 });
 app.get("/bugreport", async (req, res) => {
-  res.render("bugreport");
+  res.render("bugreport",{
+    req: req,
+  });
   logger.logEvent(
     "User visited the bug report page",
     req.headers["cf-connecting-ip"] ||
