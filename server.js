@@ -126,7 +126,6 @@ app.post("/bugreport", async (req, res) => {
   const issue = req.body.issue;
 
   logger.bugReport(problemtitle, issue);
-  // Redirect to the root URL
   res.redirect("/");
 });
 app.get("/manifest.json", async (req, res) => {

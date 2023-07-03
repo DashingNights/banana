@@ -31,6 +31,7 @@ router.get("/:slug", async (req, res) => {
   // );
   // console.log(`View count for ${article.title} was incremented`);
   res.render("show", {
+    req: req,
     article: article,
   });
 });
