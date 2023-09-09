@@ -49,6 +49,10 @@ const articleSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  authorPictureURL: {
+    type: String,
+    default: "null",
+  },
 });
 
 articleSchema.pre("validate", function (next) {

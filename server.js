@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const Article = require("./models/article");
 const config = require("./config");
 const articleRouter = require("./routes/articles");
-const profileRouter = require("./routes/profiles");
 const methodOverride = require("method-override");
 const app = express();
 const bodyParser = require("body-parser");
@@ -11,14 +10,42 @@ const multer = require("multer");
 const upload = multer();
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-const Users = require("./models/User");
-const authMiddleware = require("./middleware/authMiddleware");
-const jwt = require("jsonwebtoken");
-const requireAuth = require("./middleware/requireAuth");
-// const cdn = require('./routes/cdn');
 const { DiscordLogger } = require("./discordlogger/webhook");
 const logger = new DiscordLogger();
+const { auth, requiresAuth } = require('express-openid-connect');
+const ManagementClient = require("auth0").ManagementClient;
+const auth0 = new ManagementClient({
+  domain: "dev-edyo5qdsz3aaikna.us.auth0.com",
+  clientId: "hkn19LDMjJTiZP02syS3BcBQw69vRUll",
+  clientSecret: "DJf0vaQBCmW7rLDkyd0S5GNe5LZsjp4VO95Hp8w5b2wzRfKK8X8Bqujx70K1IyvK",
+  scope: "read:role_members read:users",
+});
+const auth0config = {
+  authRequired: false,
+  auth0Logout: true,
+  baseURL: 'https://insider.argus10q.live',
+  clientID: 'hkn19LDMjJTiZP02syS3BcBQw69vRUll',
+  issuerBaseURL: 'https://dev-edyo5qdsz3aaikna.us.auth0.com',
+  secret: 'ailw7bnye58972qao987n46yo89a7ny6onbq09276'
+};
+function requiresRole(role) {
+	return async function (req, res, next) {
+		try {
+			const user = req.oidc.user;
+			const roles = await auth0.getUserRoles({ id: user.sub });
+			if (roles && roles.some((r) => r.name === role)) {
+				next();
+			} else {
+				res.redirect("/");
+			}
+		} catch (err) {
+			console.error(err);
+			res.redirect("/");
+		}
+	};
+}
 
+app.use(auth(auth0config));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(upload.array());
@@ -93,9 +120,28 @@ app.get("/home", async (req, res) => {
   logger.logEvent("User visited the homepage", userIP);
 });
 
-app.use("/profiles", profileRouter);
-
-app.get("/adminview", requireAuth, authMiddleware, async function (req, res) {
+app.get("/profiles", requiresAuth(), async (req, res) => {
+  try {
+    const userObj = req.oidc.user;
+    const user = await auth0.getUser({ id: userObj.sub });
+    const articles = await Article.find();
+    const updatedArticles = articles.map((article) => {
+      article.title = article.title.replace(/\\u[\dA-F]{4}/gi, function (match) {
+        return String.fromCharCode(parseInt(match.replace(/\\u/g, ""), 16));
+      });
+      return article;
+    });
+    res.render("components/profile/userProfile", {
+      articles: updatedArticles,
+      user: user,
+      req: req,
+    });
+  } catch (err) {
+    console.error(err);
+    res.redirect("/");
+  }
+});
+app.get("/adminview", requiresAuth(), async function (req, res) {
   const userId = req.userId;
   const articles = await Article.find().sort({ createdAt: "desc" });
   res.render("components/admin/adminview", {
@@ -134,21 +180,8 @@ app.get("/manifest.json", async (req, res) => {
   res.sendFile(__dirname + "/public/manifest.json");
 });
 
-app.get("/login", function (req, res) {
-  res.render("login", {
-    req: req,
-  });
-  logger.logEvent(
-    "User visited the login page",
-    req.headers["cf-connecting-ip"] ||
-      req.headers["x-real-ip"] ||
-      req.socket.remoteAddress
-  );
-});
-app.get("/portal", function (req, res) {
-  res.render("portal", {
-    req: req,
-  });
+app.get("/portal", requiresAuth(),requiresRole("Administrator"), function (req, res) {
+  res.redirect("/adminview");
 });
 // hardcode for security reasons
 app.get("/cdn/:filename", function (req, res) {
@@ -167,62 +200,14 @@ app.get("/cdn/css/:filename", function (req, res) {
   const filename = req.params.filename;
   res.sendFile(__dirname + "/public/css/" + filename);
 });
-
-
-app.post("/login", function (req, res) {
-  logger.logEvent(
-    "User attempt login",
-    req.headers["cf-connecting-ip"] ||
-      req.headers["x-real-ip"] ||
-      req.socket.remoteAddress
-  );
-  if (!req.body.id || !req.body.password) {
-    res.redirect("/");
-  } else {
-    const user = Object.values(Users).find(
-      (u) => u.id === req.body.id && u.password === req.body.password
-    );
-    if (user) {
-      const token = jwt.sign({ userId: user.id }, config.JWT.token, {
-        expiresIn: "1h",
-      });
-      res.cookie("token", token, { httpOnly: true });
-      res.redirect("/adminview");
-    } else {
-      res.redirect("/");
-      console.log(
-        "[NOUSER] login failed by: " +
-          req.body.id +
-          " at " +
-          new Date().toLocaleString() +
-          ""
-      );
-      logger.logEvent(
-        "Login Failed",
-        "User: " +
-          req.body.id +
-          " at " +
-          new Date().toLocaleString() +
-          "" +
-          " IP: " +
-          req.headers["cf-connecting-ip"] ||
-          req.headers["x-real-ip"] ||
-          req.socket.remoteAddress
-      );
-    }
-  }
-});
-app.get("/logout", function (req, res) {
-  res.clearCookie("token");
-  res.redirect("/login");
-});
-
 app.use("/articles", articleRouter);
-// app.use('/upload', cdn);
 app.listen(1234);
 process.on("uncaughtException", function (err) {
   console.log("Caught exception: " + err);
   logger.bugReport("Uncaught Exception", err.stack);
+});
+app.get('/userinfo', requiresAuth(), (req, res) => {
+  res.send(JSON.stringify(req.oidc.user));
 });
 app.get("*", function (req, res) {
   res.redirect("/");
