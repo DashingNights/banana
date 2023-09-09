@@ -16,17 +16,17 @@ const { auth, requiresAuth } = require('express-openid-connect');
 const ManagementClient = require("auth0").ManagementClient;
 const auth0 = new ManagementClient({
   domain: "dev-edyo5qdsz3aaikna.us.auth0.com",
-  clientId: "hkn19LDMjJTiZP02syS3BcBQw69vRUll",
-  clientSecret: "DJf0vaQBCmW7rLDkyd0S5GNe5LZsjp4VO95Hp8w5b2wzRfKK8X8Bqujx70K1IyvK",
+  clientId: "hkn1AAAAAAAAAAAAAAAAAAQw69vRUll",
+  clientSecret: "DJf0vaQAAAAAAAAAAAAAAAAAARfKK8X8Bqujx70K1IyvK",
   scope: "read:role_members read:users",
 });
 const auth0config = {
   authRequired: false,
   auth0Logout: true,
   baseURL: 'https://insider.argus10q.live',
-  clientID: 'hkn19LDMjJTiZP02syS3BcBQw69vRUll',
+  clientID: 'hkn19AAAAAAAAAAAAAAAAAA69vRUll',
   issuerBaseURL: 'https://dev-edyo5qdsz3aaikna.us.auth0.com',
-  secret: 'ailw7bnye58972qao987n46yo89a7ny6onbq09276'
+  secret: 'ailAAAAAAAAAAAAAAAAAAny6onbq09276'
 };
 function requiresRole(role) {
 	return async function (req, res, next) {
