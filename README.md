@@ -1,4 +1,4 @@
-# Banana Project ( wiki & such might sometimes be outdated)
+# Banana Project ( WIKI & THIS README IS OUTDATED EXCEPT FOR THE CONFIG PART)
 
 This is a one-page documentation for the Banana Project. This project is primarily made for the HKUGACollege student-ran 'College Insider'. Please edit to fit usage purposes when forked.
 
