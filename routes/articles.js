@@ -4,14 +4,9 @@ const Article = require("../models/article");
 const { DiscordLogger } = require("../discordlogger/webhook");
 const logger = new DiscordLogger();
 const { auth, requiresAuth } = require("express-openid-connect");
+const config = require("../config");
 const ManagementClient = require("auth0").ManagementClient;
-const auth0 = new ManagementClient({
-	domain: "dev-edyo5qdsz3aaikna.us.auth0.com",
-	clientId: "hkn19LDMjJTiZP02syS3BcBQw69vRUll",
-	clientSecret:
-		"DJf0vaQBCmW7rLDkyd0S5GNe5LZsjp4VO95Hp8w5b2wzRfKK8X8Bqujx70K1IyvK",
-	scope: "read:role_members",
-});
+const auth0 = new ManagementClient(config.auth0.management);
 function requiresRole(role) {
 	return async function (req, res, next) {
 		try {

@@ -57,7 +57,6 @@ class DiscordLogger {
       };
       axios(axiosconfig)
         .then((response) => {
-          console.log("");
           return response;
         })
         .catch((error) => {

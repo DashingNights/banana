@@ -15,7 +15,7 @@ mongoose
     console.log("Error connecting to MongoDB, is the service Online?")
   );
 // Generate 100 sample articles
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 100; i++) {
   // Generate a random title
   const title = faker.lorem.words(10);
 

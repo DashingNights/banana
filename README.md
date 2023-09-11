@@ -39,10 +39,6 @@ const config = {
     host: "127.0.0.1",
     name: "PROD",
   },
-  JWT: {
-    //Create a JWT token (google please)
-    token: "secret",
-  },
   Session: {
     //Create a web session token (google please)
     token: "token",
@@ -53,6 +49,22 @@ const config = {
     //THIS IS FOR LOGGING
     webhook2: "https://discord.com/api/webhooks/CHANGE_THIS_LINK",
     //THESE FEATURES CAN ONLY BE TURNED OFF ( IN CODE ) IF YOU KNOW WHAT YOU ARE DOING, PLEASE DO NOT TURN THEM OFF IF YOU DO NOT KNOW WHAT YOU ARE DOING, HAVING A LOGGING SYSTEM IS VERY IMPORTANT FOR DEBUGGING
+  },
+  auth0: {
+    management: {
+      domain: "domain here.auth0.com",
+      clientId: "AAAAAAAAAA",
+      clientSecret: "AAAAAAAAAA",
+      scope: "read:role_members read:users",
+    },
+    config: {
+      authRequired: false,
+      auth0Logout: true,
+      baseURL: 'https://URL',
+      clientID: 'AAAAAAAAAA',
+      issuerBaseURL: 'https://domain here.auth0.com',
+      secret: 'AAAAAAAAAAAA'
+    },
   },
 };
 module.exports = config;
