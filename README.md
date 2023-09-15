@@ -1,6 +1,6 @@
 # Banana Project ( WIKI & THIS README IS OUTDATED EXCEPT FOR THE CONFIG PART)
 
-This is a one-page documentation for the Banana Project. This project is primarily made for the HKUGACollege student-ran 'College Insider'. Please edit to fit usage purposes when forked.
+This is a one-page documentation for the Banana Project. This project is primarily made for the HKUGA College student-ran 'College Insider'. Please edit to fit usage purposes when forked.
 
 WIKI:
 [Wiki](https://github.com/DashingNights/banana/wiki)
@@ -98,30 +98,11 @@ The `models` directory contains the following files:
 
 - `article.js`: The file that defines the schema and model for articles.
 
-- `user.js`: The file that defines the schema and model for users.
-
 The models are responsible for interacting with the database. They define the schemas for the data and provide methods for querying and modifying the data.
-
-### Middleware
-
-The `middleware` directory contains the following files:
-
-- `authMiddleware.js`: The file that defines the middleware for handling authentication.
-
-- `requireAuth.js`: The file that defines the middleware for requiring authentication.
-
-The middleware is responsible for processing the incoming requests before they reach the routes. The middleware can perform actions such as checking for authentication and modifying the request.
 
 ## Authentication
 
-The Banana Project uses JSON Web Tokens (JWTs) for authentication. When a user logs in, a JWT is created and stored in a cookie. The JWT contains the user ID, which is used to identify the user on subsequent requests.
-
-The Banana Project also has two types of users: regular users and admin users. Admin users have additional privileges, such as being able to delete articles.
-
-You can add or remove users from the `User.js` file. The passwords are NOT hashed for simplicity, please implement if needed.
-
+This project uses the [Auth0](https://auth0.com/) service for authentication. 
 ## Conclusion
 
-The Banana Project is a website that allows users to read and write articles. The project has both front-end and back-end components, and it is built using Node.js, Express.js, and MongoDB. The project uses JWTs for authentication and has two types of users: regular users and admin users.```
-
-This documentation explains the Banana Project, how it works, and how to run it. It covers both the front-end and back-end components, including the routes, models, and middleware. It also explains how authentication works in the project.
+The Banana Project is a website that allows users to read and write articles. The project has both front-end and back-end components, and it is built using Node.js, Express.js, and MongoDB. 
