@@ -63,6 +63,7 @@ const config = {
       baseURL: 'https://URL',
       clientID: 'AAAAAAAAAA',
       issuerBaseURL: 'https://domain here.auth0.com',
+//completely randomly generated string
       secret: 'AAAAAAAAAAAA'
     },
   },
