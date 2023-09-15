@@ -17,7 +17,7 @@ mongoose
 // Generate 100 sample articles
 for (let i = 0; i < 100; i++) {
   // Generate a random title
-  const title = faker.lorem.words(10);
+  const title = btoa(faker.lorem.words(10));
 
   // Generate a random description
   const description = faker.lorem.words(10);
