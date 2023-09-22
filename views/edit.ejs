@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/cdn/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/cdn/css/customstyle.css" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="manifest" href="/manifest.json">
-  <link rel="icon" href="/cdn/logo.jpg">
-  <title>College Insider Edit Article</title>
-</head>
-<body>
-  <div class="container">
-    <h1 class="mb-4">Edit Article "<%= article.title %>" </h1>
-    <div class="limit">
-    <form action="/articles/<%= article.id %>?_method=PUT" method="POST">
-      <%- include('components/_form_fields') %>
-    </form>
-  </div>
-  </div>
-  <p></p>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/cdn/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/cdn/css/customstyle.css" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="manifest" href="/manifest.json" />
+		<link rel="icon" href="/cdn/logo.jpg" />
+		<title>College Insider Edit Article</title>
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="mb-4">Edit Article "<%= article.title %>"</h1>
+			<div class="limit">
+				<form action="/articles/<%= article.id %>?_method=PUT" method="POST"><%- include('components/_form_fields') %></form>
+			</div>
+		</div>
+		<p></p>
+	</body>
 </html>

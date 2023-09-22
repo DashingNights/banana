@@ -1,60 +1,71 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/cdn/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/cdn/css/customstyle.css" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/cdn/logo.jpg">
-    <title>My Profile</title>
-    <style>
-      img.upfp {
-        object-fit: cover;
-        border-radius: 50%;
-        height: 100px;
-        width: 100px;
-      }
-      body{
-        padding-bottom: 30px;
-      }
-      .container {
-        margin-top: 30px
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="image-cropper">
-            <img
-              src="<%= user.picture %>"
-              alt="Profile Picture"
-              class="img-fluid upfp"
-            />
-          </div>
-        </div>
-        <div class="col-md-8">
-          <h6><%= user.name %></h6>
-          <h6><%= user.email %></h6>
-          <h6>About me: </h6>
-          <p><%= user.description %></p>
-        </div>
-      </div>
-      <hr />
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/cdn/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/cdn/css/customstyle.css" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="manifest" href="/manifest.json" />
+		<link rel="icon" href="/cdn/logo.jpg" />
+		<title>My Profile</title>
+		<style>
+			img.upfp {
+				object-fit: cover;
+				border-radius: 50%;
+				height: 100px;
+				width: 100px;
+			}
+			body {
+				padding-bottom: 30px;
+			}
+			.container {
+				margin-top: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="image-cropper">
+						<img src="<%= user.picture %>" alt="Profile Picture" class="img-fluid upfp" />
+					</div>
+				</div>
+				<div class="col-md-8">
+					<h6><%= user.name %></h6>
+					<h6><%= user.email %></h6>
+					<h6>About me:</h6>
+					<p><%= user.description %></p>
+				</div>
+			</div>
+			<hr />
 
-      <h2>All articles (backlog)</h2>
-      <%- include('../_searchbar') %>
-      <ul>
-        <% articles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(function(article) { %>
-          <li>
-            <a href="/articles/<%= article.slug %>"><%= Buffer.from(article.title, 'base64').toString('utf-8') %> - <%= article.hashtags %> - <%= article.author %></a>
-          </li>
-        <% }); %>
-      </ul>
-    </div>
-    <%- include('../_footer') %>
-  </body>
+			<h2>All articles (backlog)</h2>
+			<%- include('../_searchbar') %>
+			<ul class="article-list">
+				<% articles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(function(article) { %>
+				<li>
+					<a href="/articles/<%= article.slug %>"><%= Buffer.from(article.title, 'base64').toString('utf-8') %> - <%= article.hashtags %> - <%= article.author %></a>
+				</li>
+				<% }); %>
+			</ul>
+		</div>
+		<%- include('../_footer') %>
+	</body>
+	<script>
+		const searchInput = document.getElementById("search");
+		const articles = document.querySelectorAll("article-list");
+		searchInput.addEventListener("input", () => {
+			const searchQuery = searchInput.value.toLowerCase();
+
+			articles.forEach((article) => {
+				if (title.includes(searchQuery)) {
+					article.style.display = "block";
+				} else {
+					article.style.display = "none";
+				}
+			});
+		});
+	</script>
 </html>

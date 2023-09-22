@@ -116,12 +116,18 @@ app.get("/profiles", requiresAuth(), async (req, res) => {
   }
 });
 app.get("/adminview", requiresAuth(), async function (req, res) {
-  const userId = req.userId;
-  const articles = await Article.find().sort({ createdAt: "desc" });
+  const userObj = req.oidc.user;
+  const user = await auth0.getUser({ id: userObj.sub });
+  const articles = await Article.find();
+  const updatedArticles = articles.map((article) => {
+    article.title = article.title.replace(/\\u[\dA-F]{4}/gi, function (match) {
+      return String.fromCharCode(parseInt(match.replace(/\\u/g, ""), 16));
+    });
+    return article;
+  });
   res.render("components/admin/adminview", {
-    id: userId,
-    articles: articles,
-    isAdmin: req.isAdmin,
+    articles: updatedArticles,
+    user: user,
     req: req,
   });
   logger.logEvent(

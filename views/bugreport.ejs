@@ -1,36 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/cdn/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/cdn/css/customstyle.css" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="manifest" href="/manifest.json">
-  <link rel="icon" href="/cdn/logo.jpg">
-  <title>College Insider Portal</title>
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="/home?type=Both">HKUGAC College Insider <img src="/cdn/logo.jpg" alt="UGAC LOGO" height=30mvw></a>
-  </nav>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/cdn/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/cdn/css/customstyle.css" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="manifest" href="/manifest.json" />
+		<link rel="icon" href="/cdn/logo.jpg" />
+		<title>College Insider Portal</title>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light">
+			<a class="navbar-brand" href="/home?type=Both">HKUGAC College Insider <img src="/cdn/logo.jpg" alt="UGAC LOGO" height="30mvw" /></a>
+		</nav>
 
-<div class="container" style="padding-top: 20px">
-    <h1>Report a Bug</h1>
-    <form action="/bugreport" method="POST">
-      <div >
-        <label for="title">Title:</label>
-        <input style="width:75%; height: 3em" type="text" id="title" name="title" required>
-      </div>
-      <div>
-        <label for="issue">Issue: </label>
-        <textarea style="width:75%; height: 30vh" id="issue" name="issue" required></textarea>
-      </div>
-      <button type="submit">Submit</button>
-    </form>
-  <p><br><br></p>
-  <%- include('components/_footer') %>
-</body>
-<script>
-</script>
+		<div class="container" style="padding-top: 20px">
+			<h1>Report a Bug</h1>
+			<form action="/bugreport" method="POST">
+				<div>
+					<label for="title">Title:</label>
+					<input style="width: 75%; height: 3em" type="text" id="title" name="title" required />
+				</div>
+				<div>
+					<label for="issue">Issue: </label>
+					<textarea style="width: 75%; height: 30vh" id="issue" name="issue" required></textarea>
+				</div>
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+		<%- include('components/_footer') %>
+	</body>
 </html>
