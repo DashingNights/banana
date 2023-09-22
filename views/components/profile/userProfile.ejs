@@ -50,7 +50,7 @@
       <ul>
         <% articles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(function(article) { %>
           <li>
-            <a href="/articles/<%= article.slug %>"><%= Buffer.from(article.title, 'base64').toString('utf-8') %> <%= article.hashtags %></a>
+            <a href="/articles/<%= article.slug %>"><%= Buffer.from(article.title, 'base64').toString('utf-8') %> - <%= article.hashtags %> - <%= article.author %></a>
           </li>
         <% }); %>
       </ul>

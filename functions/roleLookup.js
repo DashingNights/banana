@@ -1,3 +1,9 @@
+const config = require("../config");
+const { auth, requiresAuth } = require('express-openid-connect');
+const ManagementClient = require("auth0").ManagementClient;
+const auth0 = new ManagementClient(config.auth0.management);
+const auth0config = config.auth0.config;
+
 function requiresRole(role) {
 	return async function (req, res, next) {
 		try {
