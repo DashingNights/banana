@@ -40,14 +40,15 @@
 				</div>
 			</div>
 			<hr />
-
-			<h2>All articles (backlog)</h2>
+			<h2>All Articles</h2>
 			<%- include('../_searchbar') %>
-			<ul class="article-list">
+			<ul>
 				<% articles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(function(article) { %>
-				<li>
-					<a href="/articles/<%= article.slug %>"><%= Buffer.from(article.title, 'base64').toString('utf-8') %> - <%= article.hashtags %> - <%= article.author %></a>
-				</li>
+				<div class="article-list">
+					<li>
+						<a href="/articles/<%= article.slug %>"><%= Buffer.from(article.title, 'base64').toString('utf-8') %> - <%= article.hashtags %> - <%= article.author %></a>
+					</li>
+				</div>
 				<% }); %>
 			</ul>
 		</div>
@@ -55,12 +56,14 @@
 	</body>
 	<script>
 		const searchInput = document.getElementById("search");
-		const articles = document.querySelectorAll("article-list");
+		const articles = document.querySelectorAll(".article-list");
+
 		searchInput.addEventListener("input", () => {
 			const searchQuery = searchInput.value.toLowerCase();
 
 			articles.forEach((article) => {
-				if (title.includes(searchQuery)) {
+				const context = article.innerText.toLowerCase();
+				if (context.includes(searchQuery)) {
 					article.style.display = "block";
 				} else {
 					article.style.display = "none";
