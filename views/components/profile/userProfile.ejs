@@ -44,16 +44,16 @@
         </div>
       </div>
       <hr />
-      <!-- <h2>My Articles! 😍</h2>
+
+      <h2>All articles (backlog)</h2>
+      <%- include('../_searchbar') %>
       <ul>
-        <p>
-          <% articles.forEach(function(article) { %>
+        <% articles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(function(article) { %>
           <li>
-            <a href="/articles/<%= article.slug %>"><%= article.title %></a>
+            <a href="/articles/<%= article.slug %>"><%= Buffer.from(article.title, 'base64').toString('utf-8') %> <%= article.hashtags %></a>
           </li>
-          <% }); %>
-        </p>
-      </ul> -->
+        <% }); %>
+      </ul>
     </div>
     <%- include('../_footer') %>
   </body>

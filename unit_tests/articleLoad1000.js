@@ -25,7 +25,7 @@ for (let i = 0; i < 100; i++) {
   // Generate a random markdown content
   const markdown = faker.lorem.paragraphs(10);
   const author = faker.person.fullName();
-  const hashtags = faker.lorem.words(6);
+  const hashtags = string("#"+faker.lorem.words(6));
 
   // Create a new article with the generated data
   const article = new Article({
