@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "load1000": "node unit_tests/articleLoad1000.js",
+    "load100": "node unit_tests/articleLoad1000.js",
     "discordTest": "node unit_tests/discordTester3000.js",
     "startMongo": "if \"%PROCESSOR_ARCHITECTURE%\" == \"AMD64\" (sc query MongoDB | findstr RUNNING || net start MongoDB) else (exit /b 0)"
   },

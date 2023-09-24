@@ -15,21 +15,20 @@ mongoose
 // Generate 100 sample articles
 for (let i = 0; i < 100; i++) {
 	// Generate a random title
-	const title = btoa(faker.lorem.words(10));
+	const title = btoa(faker.lorem.words(8));
 
 	// Generate a random description
-	const description = faker.lorem.words(10);
+	const description = faker.lorem.words(90);
 
 	// Generate a random markdown content
 	const markdown = faker.lorem.paragraphs(10);
 	const author = faker.person.fullName();
-	const hashtags = string("#" + faker.lorem.words(6));
-
+	const hashtags = "#" + faker.lorem.words(1);
 	// Create a new article with the generated data
 	const article = new Article({
 		title: title,
 		description: description,
-		markdown: '![Sample image](https://images.unsplash.com/photo-1579353977828-2a4eab540b9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80 "image" ) ' + markdown,
+		markdown: '![Sample image](https://i.ytimg.com/vi/kO5_uqfisD0/maxresdefault.jpg "image" ) ' + markdown,
 		type: "English",
 		author: author,
 		hashtags: hashtags,
