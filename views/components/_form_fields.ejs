@@ -10,7 +10,7 @@
   </div>
 </div>
 <div class="form-group" id="youtube-url-group" style="display: none;">
-  <label for="youtube-url">YouTube Video URL ⚠️ONLY⚠️</label>
+  <label for="youtube-url">YouTube Video URL ⚠️ONLY⚠️ IF VIDEO FORMAT</label>
   <input type="url" name="youtube-url" id="youtube-url" class="form-control" value="<%= article.youtubeUrl %>">
 </div>
 <div class="form-group" id="title-group">
@@ -57,17 +57,21 @@
   videoRadio.addEventListener('change', toggleForm);
 
   function toggleForm() {
-    // Loop through form groups
-    formGroups.forEach(group => {
-      // Get label text
-      const label = group.querySelector('label').innerText;
-      // If content type is video and label text matches, hide form group
-      if (videoRadio.checked && (label === 'Author' || label === 'Markdown')) {
-        group.style.display = 'none';
-      } else {
-        group.style.display = 'block';
-      }
-    });
-  }
+  // Loop through form groups
+  formGroups.forEach(group => {
+    // Get label text
+    const label = group.querySelector('label').innerText;
+    // If content type is video and label text matches, hide form group
+    if (videoRadio.checked && (label === 'Author' || label === 'Markdown')) {
+      group.style.display = 'none';
+    } else if (videoRadio.checked && label === 'YouTube URL') {
+      group.style.display = 'block';
+    } else if (articleRadio.checked && label === 'YouTube URL') {
+      group.style.display = 'none';
+    } else {
+      group.style.display = 'block';
+    }
+  });
+}
   setTimeout(toggleForm, 100);
 </script>
