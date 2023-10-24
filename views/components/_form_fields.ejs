@@ -1,17 +1,17 @@
 <div class="form-group">
-  <label for="content-type">Content Type</label>
+  <label for="content-type">Please select content type, ⚠️ DO NOT CHANGE AND SELECT CORRESPONDING⚠️</label>
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="content-type" id="article" value="article" checked>
+    <input class="form-check-input" type="radio" name="content-type" id="article" value="article" <%= article.contentType === 'article' ? 'checked' : '' %>>
     <label class="form-check-label" for="article">Article</label>
   </div>
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="content-type" id="video" value="video">
+    <input class="form-check-input" type="radio" name="content-type" id="video" value="video" <%= article.contentType === 'video' ? 'checked' : '' %>>
     <label class="form-check-label" for="video">Video</label>
   </div>
 </div>
 <div class="form-group" id="youtube-url-group" style="display: none;">
   <label for="youtube-url">YouTube Video URL ⚠️ONLY⚠️</label>
-  <input type="url" name="youtube-url" id="youtube-url" class="form-control">
+  <input type="url" name="youtube-url" id="youtube-url" class="form-control" value="<%= article.youtubeUrl %>">
 </div>
 <div class="form-group" id="title-group">
   <label for="title">Title (max 300)</label>
@@ -31,7 +31,7 @@
 </div>
 <div class="form-group" id="markdown-group">
   <label for="markdown">Markdown</label>
-  <textarea style='height: 25vmax' required name="markdown" id="markdown" class="form-control"><%= article.markdown %></textarea>
+  <textarea style='height: 25vmax' name="markdown" id="markdown" class="form-control"><%= article.markdown %></textarea>
 </div>
 
 <div class="form-group">
@@ -69,4 +69,5 @@
       }
     });
   }
+  setTimeout(toggleForm, 100);
 </script>
