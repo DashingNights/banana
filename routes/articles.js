@@ -3,7 +3,7 @@ const router = express.Router();
 const Article = require("../models/article");
 const { DiscordLogger } = require("../discordlogger/webhook");
 const logger = new DiscordLogger();
-const { auth, requiresAuth } = require("express-openid-connect");
+const {requiresAuth } = require("express-openid-connect");
 const config = require("../config");
 const ManagementClient = require("auth0").ManagementClient;
 const auth0 = new ManagementClient(config.auth0.management);
@@ -70,21 +70,26 @@ router.delete("/:id", requiresAuth(), requiresRole("Administrator"), async (req,
 });
 
 function saveArticleAndRedirect(path) {
-	return async (req, res) => {
-		let article = req.article;
-		article.author = req.body.author;
-		article.title = Buffer.from(req.body.title).toString("base64");
-		article.description = req.body.description;
-		article.markdown = req.body.markdown;
-		article.hashtags = req.body.hashtags;
-		article.type = req.body.type;
-		try {
-			article = await article.save();
-			res.redirect(`/articles/${article.slug}`);
-		} catch (e) {
-			console.error(e);
-			res.render(`articles/${path}`, { article: article });
-		}
-	};
+    return async (req, res) => {
+        let article = req.article;
+        article.author = req.body.author;
+        article.title = Buffer.from(req.body.title).toString("base64");
+        article.description = req.body.description;
+        article.hashtags = req.body.hashtags;
+        article.type = req.body.type;
+        article.contentType = req.body['content-type'];
+        if (article.contentType === 'video') {
+            article.youtubeUrl = req.body['youtube-url'];
+        } else {
+            article.markdown = req.body.markdown;
+        }
+        try {
+            article = await article.save();
+            res.redirect(`/articles/${article.slug}`);
+        } catch (e) {
+            console.error(e);
+            res.render(`articles/${path}`, { article: article });
+        }
+    };
 }
 module.exports = router;

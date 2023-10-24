@@ -30,15 +30,6 @@ const articleSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-	slug: {
-		type: String,
-		required: true,
-		unique: true,
-	},
-	sanitizedHtml: {
-		type: String,
-		required: true,
-	},
 	type: {
 		type: String,
 		enum: ["Chinese", "English"],
@@ -52,6 +43,16 @@ const articleSchema = new mongoose.Schema({
 	authorPictureURL: {
 		type: String,
 		default: "null",
+	},
+	contentType: {
+		type: String,
+		enum: ["article", "video"],
+		required: true,
+		default: "article",
+	},
+	youtubeUrl: {
+		type: String,
+		default: "",
 	},
 });
 

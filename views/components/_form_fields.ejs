@@ -1,20 +1,35 @@
 <div class="form-group">
+  <label for="content-type">Content Type</label>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="content-type" id="article" value="article" checked>
+    <label class="form-check-label" for="article">Article</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="content-type" id="video" value="video">
+    <label class="form-check-label" for="video">Video</label>
+  </div>
+</div>
+<div class="form-group" id="youtube-url-group" style="display: none;">
+  <label for="youtube-url">YouTube Video URL ⚠️ONLY⚠️</label>
+  <input type="url" name="youtube-url" id="youtube-url" class="form-control">
+</div>
+<div class="form-group" id="title-group">
   <label for="title">Title (max 300)</label>
   <input required value="<%= article.title %>" type="text" name="title" id="title" class="form-control" maxlength="300">
 </div>
-<div class="form-group">
+<div class="form-group" id="author-group">
   <label for="author">Author</label>
   <input required value="<%= article.author %>" type="text" name="author" id="author" class="form-control">
 </div>
-<div class="form-group">
-  <label for="author">Hashtags</label>
+<div class="form-group" id="hashtags-group">
+  <label for="hashtags">Hashtags</label>
   <input required value="<%= article.hashtags %>" type="text" name="hashtags" id="hashtags" class="form-control">
 </div>
-<div class="form-group">
+<div class="form-group" id="description-group">
   <label for="description">Description</label>
   <textarea required name="description" id="description" class="form-control"><%= article.description %></textarea>
 </div>
-<div class="form-group">
+<div class="form-group" id="markdown-group">
   <label for="markdown">Markdown</label>
   <textarea style='height: 25vmax' required name="markdown" id="markdown" class="form-control"><%= article.markdown %></textarea>
 </div>
@@ -29,3 +44,29 @@
 </div>
 <a href="/adminview" class="btn btn-secondary">Cancel</a>
 <button type="submit" class="btn btn-primary">Save</button>
+
+<script>
+  // Get all form groups
+  const formGroups = document.querySelectorAll('.form-group');
+  // Get radio buttons
+  const articleRadio = document.querySelector('#article');
+  const videoRadio = document.querySelector('#video');
+
+  // Add event listeners to radio buttons
+  articleRadio.addEventListener('change', toggleForm);
+  videoRadio.addEventListener('change', toggleForm);
+
+  function toggleForm() {
+    // Loop through form groups
+    formGroups.forEach(group => {
+      // Get label text
+      const label = group.querySelector('label').innerText;
+      // If content type is video and label text matches, hide form group
+      if (videoRadio.checked && (label === 'Author' || label === 'Markdown')) {
+        group.style.display = 'none';
+      } else {
+        group.style.display = 'block';
+      }
+    });
+  }
+</script>
