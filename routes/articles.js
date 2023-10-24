@@ -81,10 +81,8 @@ router.get("/:id/upvotes", async (req, res) => {
 });
 
 router.post("/upvote", requiresAuth(), async (req, res) => {
-	console.log(req.body); // Log the request body
 	try {
 		const article = await Article.findById(req.body.articleId);
-		console.log(article); // Log the found article
 		if (!article) {
 			return res.status(404).json({ success: false, message: "Article not found" });
 		}
