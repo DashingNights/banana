@@ -7,6 +7,8 @@
 				<div class="text-muted mb-2"><%= article.hashtags %></div>
 				<p></p>
 				<div class="card-text mb-2"><%= article.description %></div>
+				<p>Content Type: <%= article.contentType || 'article' %></p>
+				<p>Upvotes: <%= article.userUpvoteCount || 0 %></p>
 				<a href="articles/<%= article.slug %>" class="btn btn-secondary">Read More</a>
 				<a href="articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
 				<form action="/articles/<%= article.id %>?_method=DELETE" method="post">

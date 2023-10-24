@@ -12,11 +12,11 @@ function requiresRole(role) {
 			if (roles && roles.some((r) => r.name === role)) {
 				next();
 			} else {
-				res.redirect("/");
+				res.redirect("/oopsies");
 			}
 		} catch (err) {
 			console.error(err);
-			res.redirect("/");
+			res.redirect("/oopsies");
 		}
 	};
 }

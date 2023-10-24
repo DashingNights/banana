@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon server.js",
     "test": "jest",
-    "dbtest": "node db_testing/run100.js"
+    "dbtest": "node db_testing/run100.js",
+    "db_retro": "node functions/db_retro.js"
   },
   "keywords": [],
   "author": "",

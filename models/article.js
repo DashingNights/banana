@@ -22,36 +22,44 @@ const articleSchema = new mongoose.Schema({
 		default: "#KnowYourThing",
 		required: true,
 	},
-	markdown: {
-		type: String,
-		required: true,
-	},
-	createdAt: {
-		type: Date,
-		default: Date.now,
-	},
 	slug: {
 		type: String,
 		required: true,
 		unique: true,
 	},
-	sanitizedHtml: {
+	markdown: {
 		type: String,
-		required: true,
+	},
+	createdAt: {
+		type: Date,
+		default: Date.now,
 	},
 	type: {
 		type: String,
 		enum: ["Chinese", "English"],
 		required: true,
-		default: "English",
 	},
-	viewCount: {
-		type: Number,
-		default: 0,
+	sanitizedHtml: {
+		type: String,
+		required: true,
 	},
 	authorPictureURL: {
 		type: String,
 		default: "null",
+	},
+	contentType: {
+		type: String,
+		enum: ["article", "video"],
+		required: true,
+		default: "article",
+	},
+	youtubeUrl: {
+		type: String,
+		default: "",
+	},
+	userUpvoteCount: {
+		type: Number,
+		default: 0,
 	},
 });
 
