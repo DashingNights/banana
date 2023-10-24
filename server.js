@@ -136,7 +136,14 @@ app.get("/portal", requiresAuth(), requiresRole("Administrator"), function (req,
 	res.redirect("/adminview");
 });
 app.get("/noperm", function (req, res) {
-	res.render("noperm");
+	res.render("noperm", {
+		req: req,
+	});
+});
+app.get("/oopsies", function (req, res) {
+	res.render("302", {
+		req: req,
+	});
 });
 // hardcode for security reasons
 app.get("/cdn/:filename", function (req, res) {

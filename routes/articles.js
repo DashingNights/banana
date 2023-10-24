@@ -57,7 +57,7 @@ router.post("/", requiresAuth(), requiresRole("Administrator"), async (req, res,
 		res.redirect(`/articles/${newArticle.slug}`);
 	} catch (err) {
 		console.error(err);
-		res.render("new", { article: article });
+		res.redirect("/oopsies")
 	}
 });
 
@@ -123,7 +123,7 @@ function saveArticleAndRedirect(path) {
 			res.redirect(`/articles/${article.slug}`);
 		} catch (e) {
 			console.error(e);
-			res.render(`articles/${path}`, { article: article });
+			res.redirect("/oopsies")
 		}
 	};
 }
