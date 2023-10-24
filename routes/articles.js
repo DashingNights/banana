@@ -72,6 +72,31 @@ router.put(
 	saveArticleAndRedirect("edit")
 );
 
+router.get("/:id/upvotes", async (req, res) => {
+	const article = await Article.findById(req.params.id);
+	if (!article) {
+		return res.status(404).json({ success: false, message: "Article not found" });
+	}
+	res.json({ success: true, userUpvoteCount: article.userUpvoteCount });
+});
+
+router.post("/upvote", requiresAuth(), async (req, res) => {
+	console.log(req.body); // Log the request body
+	try {
+		const article = await Article.findById(req.body.articleId);
+		console.log(article); // Log the found article
+		if (!article) {
+			return res.status(404).json({ success: false, message: "Article not found" });
+		}
+		article.userUpvoteCount = (article.userUpvoteCount || 0) + 1;
+		await article.save();
+		res.json({ success: true });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ success: false, message: "An error occurred" });
+	}
+});
+
 router.delete("/:id", requiresAuth(), requiresRole("Administrator"), async (req, res) => {
 	await Article.findByIdAndDelete(req.params.id);
 	res.redirect("/adminview");

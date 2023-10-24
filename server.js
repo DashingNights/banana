@@ -135,6 +135,9 @@ app.get("/manifest.json", async (req, res) => {
 app.get("/portal", requiresAuth(), requiresRole("Administrator"), function (req, res) {
 	res.redirect("/adminview");
 });
+app.get("/noperm", function (req, res) {
+	res.render("noperm");
+});
 // hardcode for security reasons
 app.get("/cdn/:filename", function (req, res) {
 	const filename = req.params.filename;

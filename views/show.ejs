@@ -19,6 +19,12 @@
 			<p></p>
 			<div class="limit"><%- article.sanitizedHtml %></div>
 			<p></p>
+			<div>
+				<button id="upvote-button-<%= article._id %>" class="btn btn-success upvote-button" data-article-id="<%= article._id %>" data-user-upvote-count="<%= article.userUpvoteCount %>">👍 I like this x <%= article.userUpvoteCount %></button>
+				<!-- <button id="downvote-button-<%= article._id %>" class="btn btn-secondary downvote-button">👎</button> -->
+				<!-- <button id="debug-button-<%= article._id %>" class="btn btn-secondary debug-button" data-article-id="<%= article._id %>" data-user-upvote-count="<%= article.userUpvoteCount %>">Debug</button> -->
+			</div>
+			<p></p>
 			<%- article.type %>
 			<p></p>
 			<button href="#" id="shareButton" type="button" class="btn btn-primary">
@@ -83,4 +89,80 @@
 			}
 		});
 	</script>
+	<script>
+		const debugButtons = document.querySelectorAll(".debug-button");
+	
+		// Add event listener to each button
+		debugButtons.forEach((button) => {
+			const articleId = button.dataset.articleId;
+			button.addEventListener("click", function () {
+				console.log("Debug button clicked");
+				fetch(`/articles/${articleId}/upvotes`)
+					.then((response) => response.json())
+					.then((data) => {
+						console.log("Upvote count: " + data.userUpvoteCount);
+					})
+					.catch((error) => {
+						console.error("Error:", error);
+					});
+			});
+		});
+		// Get all upvote buttons
+		const upvoteButtons = document.querySelectorAll(".upvote-button");
+		// Add event listener to each button
+		upvoteButtons.forEach((button) => {
+			const articleId = button.dataset.articleId;
+	
+			// Check if the user has already upvoted this article
+			const hasUpvoted = localStorage.getItem("hasUpvoted-" + articleId);
+			if (hasUpvoted) {
+				button.disabled = true;
+			}
+	
+			button.addEventListener("click", function () {
+				console.log("Upvote button clicked");
+	
+				fetch("/userinfo")
+					.then((response) => {
+						if (!response.ok) {
+							throw new Error("Not logged in");
+						}
+						return response.json();
+					})
+					.then((data) => {
+						// User is logged in, increment upvote count in MongoDB
+						fetch("/articles/upvote", {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify({ articleId: articleId }),
+						})
+							.then((response) => response.json())
+							.then((data) => {
+								if (data.success) {
+									// Upvote was successful, disable the button and save the state in localStorage
+									button.disabled = true;
+									localStorage.setItem("hasUpvoted-" + articleId, true);
+									fetch(`/articles/${articleId}/upvotes`)
+										.then((response) => response.json())
+										.then((data) => {
+											console.log("Latest upvote count: " + data.userUpvoteCount);
+											// Update the upvote count in the button's text
+											button.textContent = `👍 I like this x ${data.userUpvoteCount}`;
+										});
+								} else {
+									throw new Error("Upvote failed");
+								}
+							});
+					})
+					.catch((error) => {
+						console.error("Error:", error);
+						// Show a popup to the user
+						alert("Please log in to rate articles.");
+					});
+			});
+		});
+	</script>
+	
 </html>
