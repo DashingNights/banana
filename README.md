@@ -35,12 +35,13 @@ To run the Banana Project, follow the instructions below:
 
 ```javascript
 const config = {
+  port : 1234, //website port
   Mongodb: {
     host: "127.0.0.1",
     name: "PROD",
   },
   Session: {
-    //Create a web session token (google please)
+    //random string
     token: "token",
   },
   Discord: {
@@ -50,21 +51,20 @@ const config = {
     webhook2: "https://discord.com/api/webhooks/CHANGE_THIS_LINK",
     //THESE FEATURES CAN ONLY BE TURNED OFF ( IN CODE ) IF YOU KNOW WHAT YOU ARE DOING, PLEASE DO NOT TURN THEM OFF IF YOU DO NOT KNOW WHAT YOU ARE DOING, HAVING A LOGGING SYSTEM IS VERY IMPORTANT FOR DEBUGGING
   },
-  auth0: {
+    auth0: {
     management: {
-      domain: "domain here.auth0.com",
-      clientId: "AAAAAAAAAA",
-      clientSecret: "AAAAAAAAAA",
-      scope: "read:role_members read:users",
+      domain: "domain-here.auth0.com", //same as issuerBaseURL, without "https://", example: "dev-eav9286n4ywh7.us.auth0.com"
+      clientId: "AAAAAAAAAA", //same as "clientID" below, under "Application" -> Settings -> Client ID
+      clientSecret: "AAAAAAAAAA", //under "Application" -> Settings -> Client secret
+      scope: "read:role_members read:users", //do not change unless you know what you are doing
     },
     config: {
-      authRequired: false,
-      auth0Logout: true,
-      baseURL: 'https://URL',
-      clientID: 'AAAAAAAAAA',
-      issuerBaseURL: 'https://domain here.auth0.com',
-//completely randomly generated string
-      secret: 'AAAAAAAAAAAA'
+      authRequired: false, //do not change unless you know what you are doing
+      auth0Logout: true, //do not change unless you know what you are doing
+      baseURL: 'https://your-website.com', //your website url, example: https://hkugacinsider.com/
+      clientID: 'AAAAAAAAAA', //same as "clientId" above
+      issuerBaseURL: 'https://domain-here.auth0.com', //same as "domain" above, with "https://" in front, example: "https://dev-eav9286n4ywh7.us.auth0.com"
+      secret: 'AAAAAAAAAAAA'  //a random string, used to encrypt your session
     },
   },
 };

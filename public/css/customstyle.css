@@ -9,7 +9,6 @@
   height: auto;
 }
 body {
-  zoom: 75%;
   background-color: #fffdf8;
   padding-top: 65px;
 }
@@ -172,6 +171,7 @@ body.dark {
   overflow: hidden;
   width: 100%;
   padding-top: 62.5%; /* 16:9 Aspect Ratio */
+
 }
 
 .iframe-container iframe {
