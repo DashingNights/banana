@@ -17,7 +17,8 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 50px;
+  height: 52px;
+  max-height: 52px;
   background-color: #fffdf4;
   border-top: 1px solid #b6b6b66b;
   display: flex;
