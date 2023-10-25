@@ -116,6 +116,10 @@
 					transform: rotate(360deg);
 				}
 			}
+			body {
+				max-width: 1200px; /* Set the maximum width to 1200 pixels */
+				margin: 0 auto; /* Center the content horizontally */
+			}
 		</style>
 	</head>
 	<body>
@@ -226,7 +230,7 @@
 				} else {
 					article.style.display = "none";
 				}
-			}); 
+			});
 		});
 		const navbar = document.querySelector(".navbar");
 
@@ -243,9 +247,11 @@
 			}
 			prevScrollPos = currentScrollPos;
 		});
-		if (/Mobi/.test(navigator.userAgent)) {
+		if (window.innerWidth > window.innerHeight) {
+			// Width is greater than height
+			alert("Thank you for visiting College Insider!\n We are currently mostly optimised for usage on mobile devices. \n Please visit us on your mobile device, resize the window, or rotate to vertical view if possible for a better experience.\n🫶");
 		} else {
-		alert("Thank you for visiting College Insider!\n We are currently mostly optimised for usage on mobile devices. \n Please visit us on your mobile device or resize the window \n if possible for a better experience.\n🫶");
+			// Mobile device detected
 		}
 	</script>
 </html>

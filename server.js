@@ -18,6 +18,7 @@ const auth0 = new ManagementClient(config.auth0.management);
 const auth0config = config.auth0.config;
 const roleLookup = require("./functions/roleLookup");
 const requiresRole = roleLookup;
+const port = config.port;
 
 app.use(auth(auth0config));
 app.use(bodyParser.json());
@@ -163,7 +164,7 @@ app.get("/cdn/css/:filename", function (req, res) {
 	res.sendFile(__dirname + "/public/css/" + filename);
 });
 app.use("/articles", articleRouter);
-app.listen(1234);
+app.listen(port);
 process.on("uncaughtException", function (err) {
 	console.log("Caught exception: " + err);
 	logger.bugReport("Uncaught Exception", err.stack);
