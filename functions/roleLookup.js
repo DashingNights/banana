@@ -12,7 +12,7 @@ function requiresRole(role) {
 			if (roles && roles.some((r) => r.name === role)) {
 				next();
 			} else {
-				res.redirect("/oopsies");
+				res.redirect("/noperm");
 			}
 		} catch (err) {
 			console.error(err);
