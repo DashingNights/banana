@@ -11,6 +11,7 @@
 body {
   background-color: #fffdf8;
   padding-top: 65px;
+  font-size: 0.79rem;
 }
 .footer {
   position: fixed;
@@ -22,7 +23,7 @@ body {
   border-top: 1px solid #b6b6b66b;
   display: flex;
   justify-content: space-between;
-  padding: 9px;
+  padding: 10px;
   box-sizing: border-box;
 }
 .footer.dark {
