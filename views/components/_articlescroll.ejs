@@ -28,14 +28,14 @@
 				<p></p>
 				<div class="card-text mb-2"><%= article.description %></div>
 				<% if (article.contentType !== 'video') { %>
-				<a href="articles/<%= article.slug %>" class="btn btn-secondary">Read More</a>
+				<a href="articles/<%= article.slug %>" class="btn btn-secondary btn-sm">Read More</a>
 				<% } %>
 				<p></p>
 				<span class="text-muted"><%= article.createdAt.toLocaleDateString() %> </span>
 				<p></p>
-				<div>
-					<p class="text-muted">Show your support to the author!</p>
-					<button id="upvote-button-<%= article._id %>" class="btn btn-success upvote-button" data-article-id="<%= article._id %>" data-user-upvote-count="<%= article.userUpvoteCount %>">👍 I like this x <%= article.userUpvoteCount %></button>
+				<p class="text-muted">Show your support to the author!</p>
+				<div class="reaction-buttons">
+					<button id="upvote-button-<%= article._id %>" class="btn btn-success btn-sm upvote-button" data-article-id="<%= article._id %>" data-user-upvote-count="<%= article.userUpvoteCount %>">👍 I like this x <%= article.userUpvoteCount %></button>
 					<!-- <button id="downvote-button-<%= article._id %>" class="btn btn-secondary downvote-button">👎</button> -->
 					<!-- <button id="debug-button-<%= article._id %>" class="btn btn-secondary debug-button" data-article-id="<%= article._id %>" data-user-upvote-count="<%= article.userUpvoteCount %>">Debug</button> -->
 				</div>
