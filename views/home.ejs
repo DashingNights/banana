@@ -117,8 +117,10 @@
 				}
 			}
 			body {
-				max-width: 1024;
-				margin: 0 auto;
+				max-width: 1024px;
+			}
+			.badview {
+				display: none;
 			}
 		</style>
 	</head>
@@ -140,11 +142,19 @@
 				<img src="/cdn/loadingdots.gif" alt="loadingImage" />
 			</div>
 		</div>
+		<div class="alert alert-danger badview" role="alert">Thank you for visiting College Insider! We are currently mostly optimised for usage on mobile devices. Please visit us on your mobile device, resize the window, or rotate to vertical view if possible for a better experience.🫶</div>
 		<%- include('components/home/_HomeScrollView') %>
 		<p><br /><br /></p>
 		<%- include('components/_footer') %>
 	</body>
 	<script>
+		if (window.innerWidth > window.innerHeight) {
+			// Width is greater than height
+			document.querySelector(".badview").style.display = "block";
+		} else {
+			// Mobile device detected
+		}
+
 		const queryParams = new URLSearchParams(window.location.search);
 
 		function getImageUrl(sanitizedHtml) {
@@ -247,11 +257,11 @@
 			}
 			prevScrollPos = currentScrollPos;
 		});
-		if (window.innerWidth > window.innerHeight) {
-			// Width is greater than height
-			alert("Thank you for visiting College Insider!\n We are currently mostly optimised for usage on mobile devices. \n Please visit us on your mobile device, resize the window, or rotate to vertical view if possible for a better experience.\n🫶");
-		} else {
-			// Mobile device detected
-		}
+		// if (window.innerWidth > window.innerHeight) {
+		// 	// Width is greater than height
+		// 	alert("Thank you for visiting College Insider!\n We are currently mostly optimised for usage on mobile devices. \n Please visit us on your mobile device, resize the window, or rotate to vertical view if possible for a better experience.\n🫶");
+		// } else {
+		// 	// Mobile device detected
+		// }
 	</script>
 </html>
