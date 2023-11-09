@@ -60,11 +60,11 @@ class DiscordLogger {
 					return response;
 				})
 				.catch((error) => {
-					console.log(error);
+					// console.log(error);
 					return error;
 				});
 		} catch (error) {
-			console.error("Error sending Discord message:", error.response);
+			// console.error("Error sending Discord message:", error.response);
 		}
 	}
 }

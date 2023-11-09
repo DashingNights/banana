@@ -50,7 +50,7 @@ body {
 }
 .navbar img {
   width: auto;
-  max-height: 65px;
+  max-height: 6.5vh;
 }
 #pull-to-refresh {
   padding-top: 65px;
@@ -186,7 +186,7 @@ body.dark {
   max-height: 2rem;
 }
 ._filter{
-  display: flex;
+  display: block;
   justify-content: space-between;
   align-items: center;
   font-size: 0.79rem;
@@ -205,4 +205,11 @@ body.dark {
 }
 .search-container{
   margin-bottom: 0.2rem;
+}
+.notification{
+  /* center div */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* center text */
 }
