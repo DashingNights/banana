@@ -12,8 +12,8 @@
 	</head>
 	<body>
 		<div class="container">
-			<h1 class="mb-4">Welcome, <%= user.name %></h1>
-			<a href="/articles/new" class="btn btn-success">New Article</a>
+			<div class="d-flex justify-content-start"><a href="/articles/new" class="btn btn-success">New Article</a></div>
+			<p></p>
 			<%- include('_AdminScrollView') %>
 
 			<p><br /></p>
@@ -31,8 +31,9 @@
 				const title = article.querySelector(".card-title").textContent.toLowerCase();
 				const content = article.querySelector(".card-text").textContent.toLowerCase();
 				const hashtags = article.querySelector(".text-muted").textContent.toLowerCase();
+				const author = article.querySelector(".card-text").textContent.toLowerCase();
 
-				if (title.includes(searchQuery) || content.includes(searchQuery) || hashtags.includes(searchQuery)) {
+				if (title.includes(searchQuery) || content.includes(searchQuery) || hashtags.includes(searchQuery) || author.includes(searchQuery)) {
 					article.style.display = "block";
 				} else {
 					article.style.display = "none";

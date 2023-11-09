@@ -42,6 +42,7 @@ const articleSchema = new mongoose.Schema({
 	sanitizedHtml: {
 		type: String,
 		required: true,
+		default: " ",
 	},
 	authorPictureURL: {
 		type: String,
