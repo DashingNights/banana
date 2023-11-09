@@ -3,8 +3,8 @@
   "short_name": "Insider",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#fffdf4",
+  "background_color": "#fffdf4",
   "icons": [
     {
       "src": "https://insider.argus10q.live/cdn/logo.jpg",
