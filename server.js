@@ -8,8 +8,6 @@ const app = express();
 const bodyParser = require("body-parser");
 const multer = require("multer");
 const upload = multer();
-const session = require("express-session");
-const cookieParser = require("cookie-parser");
 const { DiscordLogger } = require("./discordlogger/webhook");
 const logger = new DiscordLogger();
 const { auth, requiresAuth } = require("express-openid-connect");
@@ -30,7 +28,7 @@ mongoose
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useCreateIndex: true,
-		useFindAndModify: false, // Add this line
+		useFindAndModify: false,
 	})
 	.then(() => console.log("Connected to MongoDB"))
 	.catch(() => console.log("Error connecting to MongoDB, is the service Online?"));
@@ -39,22 +37,8 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(function (req, res, next) {
-	// Check if the fbclid parameter is present in the request URL
 	if (req.query.fbclid) {
-		// Remove the fbclid parameter from the request URL
 		const urlWithoutFbclid = req.originalUrl.replace(/[\?&]fbclid=[^&#]+/g, "");
-		// Redirect the user to the same URL without the fbclid parameter
-		return res.redirect(urlWithoutFbclid);
-	}
-	next();
-});
-app.use(function (req, res, next) {
-	// Check if the fbclid parameter is present in the request URL
-	if (req.query.fbclid) {
-		logger.logEvent("User from INSTAGERAM visited the homepage", req.headers["cf-connecting-ip"] || req.headers["x-real-ip"] || req.socket.remoteAddress);
-		// Remove the fbclid parameter from the request URL
-		const urlWithoutFbclid = req.originalUrl.replace(/[\?&]fbclid=[^&#]+/g, "");
-		// Redirect the user to the same URL without the fbclid parameter
 		return res.redirect(urlWithoutFbclid);
 	}
 	next();
@@ -72,9 +56,9 @@ app.get("/home", async (req, res) => {
 		req: req,
 		shouldShowOverlay,
 	});
-	const userIP = req.headers["cf-connecting-ip"] || req.headers["x-real-ip"] || req.socket.remoteAddress;
-	console.log(userIP);
-	logger.logEvent("User visited the homepage", userIP);
+	// const userIP = req.headers["cf-connecting-ip"] || req.headers["x-real-ip"] || req.socket.remoteAddress;
+	// console.log(userIP);
+	// logger.logEvent("User visited the homepage", userIP);
 });
 
 app.get("/profiles", requiresAuth(), async (req, res) => {
@@ -113,19 +97,18 @@ app.get("/adminview", requiresAuth(), async function (req, res) {
 		user: user,
 		req: req,
 	});
-	logger.logEvent("User visited the admin view", req.headers["cf-connecting-ip"] || req.headers["x-real-ip"] || req.socket.remoteAddress);
+	// logger.logEvent("User visited the admin view", req.headers["cf-connecting-ip"] || req.headers["x-real-ip"] || req.socket.remoteAddress);
 });
 app.get("/bugreport", async (req, res) => {
 	res.render("bugreport", {
 		req: req,
 	});
-	logger.logEvent("User visited the bug report page", req.headers["cf-connecting-ip"] || req.headers["x-real-ip"] || req.socket.remoteAddress);
+	// logger.logEvent("User visited the bug report page", req.headers["cf-connecting-ip"] || req.headers["x-real-ip"] || req.socket.remoteAddress);
 });
 
 app.post("/bugreport", async (req, res) => {
 	const problemtitle = req.body.title;
 	const issue = req.body.issue;
-
 	logger.bugReport(problemtitle, issue);
 	res.redirect("/");
 });
@@ -146,7 +129,9 @@ app.get("/oopsies", function (req, res) {
 		req: req,
 	});
 });
-// hardcode for security reasons
+app.get("/userinfo", requiresAuth(), (req, res) => {
+	res.send(JSON.stringify(req.oidc.user));
+});
 app.get("/cdn/:filename", function (req, res) {
 	const filename = req.params.filename;
 	res.sendFile(__dirname + "/public/" + filename);
@@ -163,19 +148,43 @@ app.get("/cdn/css/:filename", function (req, res) {
 	const filename = req.params.filename;
 	res.sendFile(__dirname + "/public/css/" + filename);
 });
+
 app.use("/articles", articleRouter);
+
 app.listen(port);
+
 process.on("uncaughtException", function (err) {
 	console.log("Caught exception: " + err);
 	logger.bugReport("Uncaught Exception", err.stack);
 });
-app.get("/userinfo", requiresAuth(), (req, res) => {
-	res.send(JSON.stringify(req.oidc.user));
-});
+//.........................................................................................................................................................................................................................................................................
+//.DDDDDDDDDDDDDDD............OOOOOOOOOOO................NNNNNN.......NNNNN........OOOOOOOOOOO.......OTTTTTTTTTTTTTTTTT.........MMMMMMMM.......MMMMMMMM.......OOOOOOOOOOO......OOVVVV.........VVVVVV.EEEEEEEEEEEEEEEEE...........UUUUUU.......UUUUUU...PPPPPPPPPPPPPPP.....
+//.DDDDDDDDDDDDDDDDD........OOOOOOOOOOOOOOO..............NNNNNNN......NNNNN......OOOOOOOOOOOOOOO.....OTTTTTTTTTTTTTTTTT.........MMMMMMMMM.....MMMMMMMMM.....OOOOOOOOOOOOOOO....OOVVVV.........VVVVVV.EEEEEEEEEEEEEEEEE...........UUUUUU.......UUUUUU...PPPPPPPPPPPPPPPP....
+//.DDDDDDDDDDDDDDDDDD......OOOOOOOOOOOOOOOOO.............NNNNNNN......NNNNN.....OOOOOOOOOOOOOOOOO....OTTTTTTTTTTTTTTTTT.........MMMMMMMMM.....MMMMMMMMM....OOOOOOOOOOOOOOOOO...OOVVVVV.......VVVVVV..EEEEEEEEEEEEEEEEE...........UUUUUU.......UUUUUU...PPPPPPPPPPPPPPPPP...
+//.DDDDDDDDDDDDDDDDDD.....OOOOOOOOOOOOOOOOOOO............NNNNNNNN.....NNNNN.....OOOOOOOOOOOOOOOOOO...OTTTTTTTTTTTTTTTTT.........MMMMMMMMM.....MMMMMMMMM....OOOOOOOOOOOOOOOOOO...OVVVVV.......VVVVVV..EEEEEEEEEEEEEEEEE...........UUUUUU.......UUUUUU...PPPPPPPPPPPPPPPPP...
+//.DDDDDD....DDDDDDDDD....OOOOOOOOO.OOOOOOOOO............NNNNNNNN.....NNNNN....OOOOOOOOO.OOOOOOOOO.........TTTTTT...............MMMMMMMMMM....MMMMMMMMM...OOOOOOOOO.OOOOOOOOO...OVVVVV.......VVVVVV..EEEEE.......................UUUUUU.......UUUUUU...PPPPP....PPPPPPPPP..
+//.DDDDDD......DDDDDDD...OOOOOOOO.....OOOOOOOO...........NNNNNNNNN....NNNNN...OOOOOOOO.....OOOOOOOO........TTTTTT...............MMMMMMMMMM...MMMMMMMMMM..OOOOOOOO.....OOOOOOOO..OVVVVVV.....VVVVVV...EEEEE.......................UUUUUU.......UUUUUU...PPPPP......PPPPPPP..
+//.DDDDDD.......DDDDDDD..OOOOOOO.......OOOOOOO...........NNNNNNNNNN...NNNNN...OOOOOOO.......OOOOOOO........TTTTTT...............MMMMMMMMMM...MMMMMMMMMM..OOOOOOO.......OOOOOOO...VVVVVV.....VVVVVV...EEEEE.......................UUUUUU.......UUUUUU...PPPPP.......PPPPPP..
+//.DDDDDD........DDDDDD..OOOOOO.........OOOOOO...........NNNNNNNNNN...NNNNN...OOOOOO.........OOOOOO........TTTTTT...............MMMMMMMMMM...MMMMMMMMMM..OOOOOO.........OOOOOO...VVVVVV....VVVVVV....EEEEE.......................UUUUUU.......UUUUUU...PPPPP.......PPPPPP..
+//.DDDDDD........DDDDDD..OOOOOO.........OOOOOO...........NNNNNNNNNNN..NNNNN...OOOOOO.........OOOOOOO.......TTTTTT...............MMMMMMMMMMM..MMMMMMMMMM..OOOOOO.........OOOOOOO..VVVVVVV...VVVVVV....EEEEE.......................UUUUUU.......UUUUUU...PPPPP......PPPPPPP..
+//.DDDDDD........DDDDDD.DOOOOOO.........OOOOOOO..........NNNNNNNNNNN..NNNNN...OOOOOO..........OOOOOO.......TTTTTT...............MMMMMMMMMMM.MMMMMMMMMMM..OOOOOO..........OOOOOO...VVVVVV...VVVVVV....EEEEEEEEEEEEEEEE............UUUUUU.......UUUUUU...PPPPP....PPPPPPPPP..
+//.DDDDDD........DDDDDD.DOOOOO...........OOOOOO..........NNNNNNNNNNNN.NNNNN...OOOOOO..........OOOOOO.......TTTTTT...............MMMMMMMMMMM.MMMMMMMMMMM..OOOOOO..........OOOOOO...VVVVVV..VVVVVV.....EEEEEEEEEEEEEEEE............UUUUUU.......UUUUUU...PPPPPPPPPPPPPPPPP...
+//.DDDDDD........DDDDDD.DOOOOO...........OOOOOO..........NNNNN.NNNNNNNNNNNN...OOOOOO..........OOOOOO.......TTTTTT...............MMMMMMMMMMM.MMMMMMMMMMM..OOOOOO..........OOOOOO...VVVVVVV.VVVVVV.....EEEEEEEEEEEEEEEE............UUUUUU.......UUUUUU...PPPPPPPPPPPPPPPPP...
+//.DDDDDD........DDDDDD.DOOOOOO.........OOOOOOO..........NNNNN.NNNNNNNNNNNN...OOOOOO..........OOOOOO.......TTTTTT...............MMMMMM.MMMMMMMMMMMMMMMM..OOOOOO..........OOOOOO....VVVVVV.VVVVVV.....EEEEEEEEEEEEEEEE............UUUUUU.......UUUUUU...PPPPPPPPPPPPPPPP....
+//.DDDDDD........DDDDDD..OOOOOO.........OOOOOO...........NNNNN..NNNNNNNNNNN...OOOOOO.........OOOOOOO.......TTTTTT...............MMMMMM.MMMMMMMMM.MMMMMM..OOOOOO.........OOOOOOO....VVVVVVVVVVVV......EEEEE.......................UUUUUU.......UUUUUU...PPPPPPPPPPPPPP......
+//.DDDDDD........DDDDDD..OOOOOO.........OOOOOO...........NNNNN...NNNNNNNNNN...OOOOOO.........OOOOOO........TTTTTT...............MMMMMM.MMMMMMMMM.MMMMMM..OOOOOO.........OOOOOO......VVVVVVVVVVV......EEEEE.......................UUUUUU.......UUUUUU...PPPPP...............
+//.DDDDDD.......DDDDDDD..OOOOOOO.......OOOOOOO...........NNNNN...NNNNNNNNNN...OOOOOOO.......OOOOOOO........TTTTTT...............MMMMMM.MMMMMMMMM.MMMMMM..OOOOOOO.......OOOOOOO......VVVVVVVVVV.......EEEEE.......................UUUUUU.......UUUUUU...PPPPP...............
+//.DDDDDD......DDDDDDD...OOOOOOOO.....OOOOOOOO...........NNNNN....NNNNNNNNN...OOOOOOOO.....OOOOOOOO........TTTTTT...............MMMMMM.MMMMMMMMM.MMMMMM..OOOOOOOO.....OOOOOOOO......VVVVVVVVVV.......EEEEE.......................UUUUUUU.....UUUUUUU...PPPPP...............
+//.DDDDDD....DDDDDDDDD....OOOOOOOOO.OOOOOOOOO............NNNNN....NNNNNNNNN....OOOOOOOOO.OOOOOOOOO.........TTTTTT...............MMMMMM..MMMMMMM..MMMMMM...OOOOOOOOO.OOOOOOOOO........VVVVVVVVV.......EEEEE........................UUUUUUUU.UUUUUUUU....PPPPP...............
+//.DDDDDDDDDDDDDDDDDD.....OOOOOOOOOOOOOOOOOOO............NNNNN.....NNNNNNNN.....OOOOOOOOOOOOOOOOOO.........TTTTTT...............MMMMMM..MMMMMMM..MMMMMM....OOOOOOOOOOOOOOOOOO........VVVVVVVV........EEEEEEEEEEEEEEEEEE...........UUUUUUUUUUUUUUUUU....PPPPP...............
+//.DDDDDDDDDDDDDDDDDD......OOOOOOOOOOOOOOOOO.............NNNNN......NNNNNNN.....OOOOOOOOOOOOOOOOO..........TTTTTT...............MMMMMM..MMMMMMM..MMMMMM....OOOOOOOOOOOOOOOOO.........VVVVVVVV........EEEEEEEEEEEEEEEEEE...........UUUUUUUUUUUUUUUUU....PPPPP...............
+//.DDDDDDDDDDDDDDDDD........OOOOOOOOOOOOOOO..............NNNNN......NNNNNNN.......OOOOOOOOOOOOOO...........TTTTTT...............MMMMMM..MMMMMMM..MMMMMM......OOOOOOOOOOOOOO...........VVVVVVV........EEEEEEEEEEEEEEEEEE............UUUUUUUUUUUUUUU.....PPPPP...............
+//.DDDDDDDDDDDDDDD............OOOOOOOOOOO................NNNNN.......NNNNNN........OOOOOOOOOOO.............TTTTTT...............MMMMMM...MMMMM...MMMMMM.......OOOOOOOOOOO.............VVVVVV.........EEEEEEEEEEEEEEEEEE..............UUUUUUUUUUU.......PPPPP...............
+//.........................................................................................................................................................................................................................................................................
+// ⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇
 app.get("*", function (req, res) {
 	res.redirect("/");
 });
-
 app.use(function (err, req, res, next) {
 	if (config.Discord.enabled === true) {
 		logger.bugReport("Internal Server Error", err.stack);
