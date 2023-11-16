@@ -2,6 +2,7 @@
 
 This is a one-page documentation for the Banana Project. This project is primarily made for the HKUGA College student-ran 'College Insider'. Please edit to fit usage purposes when forked.
 
+Video tutorial for simple setup
 [![video tutorial of setup](https://img.youtube.com/vi/LN8A-FSzVqI/0.jpg)](https://www.youtube.com/watch?v=LN8A-FSzVqI)
 
 
