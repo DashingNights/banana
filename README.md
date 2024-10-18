@@ -3,7 +3,7 @@
 This is a one-page documentation for the Banana Project. This project is primarily made for the HKUGA College student-ran 'College Insider'. Please edit to fit usage purposes when forked.
 
 DEMO:
-[DEMO: https://insider.argus10q.live](https://kelvin.hkugaict2024.com/)
+[DEMO: https://insiders.lcrew.xyz(https://insiders.lcrew.xyz/)
 
 ## Adding to your phone home-screen
 
